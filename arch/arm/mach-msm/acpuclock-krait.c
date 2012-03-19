@@ -1119,9 +1119,7 @@ static int __init get_pvs_bin(u32 pte_efuse)
 	}
 
 	return pvs_bin;
-#ifdef CONFIG_DEBUG_FS
-        krait_chip_variant = pvs_bin;
-#endif
+
 }
 
 static struct pvs_table * __init select_freq_plan(u32 pte_efuse_phys,
@@ -1142,7 +1140,9 @@ static struct pvs_table * __init select_freq_plan(u32 pte_efuse_phys,
 	
 	drv.speed_bin = get_speed_bin(pte_efuse_val);
 	drv.pvs_bin = get_pvs_bin(pte_efuse_val);
-
+#ifdef CONFIG_DEBUG_FS
+        krait_chip_variant = drv.speed_bin;
+#endif
 	return &pvs_tables[drv.speed_bin][drv.pvs_bin];
 }
 
