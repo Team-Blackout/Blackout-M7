@@ -128,4 +128,9 @@ obj-$(CONFIG_PSTORE)		+= pstore/
 
 # Patched by YAFFS
 obj-$(CONFIG_YAFFS_FS)		+= yaffs2/
+<<<<<<< HEAD
 obj-$(CONFIG_HTC_FD_MONITOR)		+= fd_monitor.o
+=======
+
+obj-$(CONFIG_DYNAMIC_FSYNC)	+= dyn_sync_cntrl.o
+>>>>>>> 69e8ea0... fs/dyn_sync_cntrl: dynamic sync control

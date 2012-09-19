@@ -280,6 +280,7 @@ endif # NETWORK_FILESYSTEMS
 source "fs/nls/Kconfig"
 source "fs/dlm/Kconfig"
 
+<<<<<<< HEAD
 config EXFAT_FS
 	tristate "exFAT file system support"
 	select NLS
@@ -300,5 +301,12 @@ config FSYNC_DEBUG
 	string "Debug EXT4 fsync"
 	depends on EXT4_FS
 	default n
+=======
+config DYNAMIC_FSYNC
+	bool "dynamic file sync control"
+	default n
+	help
+	  An experimental file sync control using Android's early suspend / late resume drivers
+>>>>>>> 69e8ea0... fs/dyn_sync_cntrl: dynamic sync control
 
 endmenu
