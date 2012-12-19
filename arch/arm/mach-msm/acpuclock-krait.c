@@ -1025,6 +1025,9 @@ static int __init get_pvs_bin(u32 pte_efuse)
 	}
 
 	return pvs_bin;
+#ifdef CONFIG_DEBUG_FS
+        krait_chip_variant = pvs_bin;
+#endif
 }
 
 static struct pvs_table * __init select_freq_plan(u32 pte_efuse_phys,
@@ -1082,9 +1085,7 @@ static void __init drv_data_init(struct device *dev,
 	BUG_ON(!drv.acpu_freq_tbl);
 	drv.boost_uv = pvs->boost_uv;
 
-#ifdef CONFIG_DEBUG_FS
-        krait_chip_variant = tbl_idx;
-#endif
+
 
 	acpuclk_krait_data.power_collapse_khz = params->stby_khz;
 	acpuclk_krait_data.wait_for_irq_khz = params->stby_khz;
