@@ -368,8 +368,30 @@ static struct attribute_group apps_attr_group = {
 	.attrs = apps_g,
 };
 
+<<<<<<< HEAD
 static struct attribute_group battery_attr_group = {
 	.attrs = battery_g,
+=======
+#ifdef CONFIG_HOTPLUG_CPU
+static int cpu_hotplug_callback(struct notifier_block *nfb, unsigned long action, void *hcpu)
+{
+	switch (action) {
+		
+		case CPU_ONLINE:
+		case CPU_ONLINE_FROZEN:
+			sysfs_notify(hotplug_kobj, NULL, "cpu_hotplug");
+			break;
+		case CPU_DEAD:
+		case CPU_DEAD_FROZEN:
+			break;
+	}
+	return NOTIFY_OK;
+}
+
+static struct notifier_block __refdata cpu_hotplug_notifier = {
+	.notifier_call = cpu_hotplug_callback,
+	.priority = -10, 
+>>>>>>> 9d2e88f... cpuinit: get rid of __cpuinit, first regexp
 };
 
 static unsigned int slack_time_ms;
