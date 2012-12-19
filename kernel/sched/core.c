@@ -4076,7 +4076,7 @@ static void set_rq_offline(struct rq *rq)
 	}
 }
 
-static int __cpuinit
+static int
 migration_call(struct notifier_block *nfb, unsigned long action, void *hcpu)
 {
 	int cpu = (long)hcpu;
