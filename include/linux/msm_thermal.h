@@ -33,6 +33,9 @@ struct msm_thermal_data {
 	uint32_t allowed_low_high;
 	uint32_t allowed_low_low;
 	uint32_t allowed_low_freq;
+	uint32_t limit_temp_degC;
+	uint32_t temp_hysteresis_degC;
+	uint32_t freq_step;
 };
 
 #ifdef CONFIG_THERMAL_MONITOR
