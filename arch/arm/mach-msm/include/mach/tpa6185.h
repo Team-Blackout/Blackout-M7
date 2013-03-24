@@ -8,7 +8,9 @@
 #define HEADSET_OUTPUT 1
 #define DUAL_OUTPUT 2
 #define HANDSET_OUTPUT 3
-#define LINEOUT_OUTPUT 4
+#define BEATS_ON_OUTPUT 4
+#define BEATS_OFF_OUTPUT 5
+#define LINEOUT_OUTPUT 6
 #define MODE_CMD_LEM 9
 struct tpa6185_platform_data {
 	uint32_t gpio_tpa6185_spk_en;
@@ -36,6 +38,8 @@ enum TPA6185_Mode {
 	TPA6185_MODE_FM_HEADSET,
 	TPA6185_MODE_PLAYBACK_HANDSET,
 	TPA6185_MODE_VOICECALL_HANDSET,
+	TPA6185_MODE_PLAYBACK_HEADSET_BEATS_ON,
+	TPA6185_MODE_PLAYBACK_HEADSET_BEATS_OFF,
 	TPA6185_MODE_LINEOUT,
 	TPA6185_MAX_MODE
 };
@@ -52,5 +56,6 @@ void set_headset_amp(int on);
 void set_speaker_headset_amp(int on);
 void set_handset_amp(int on);
 void set_usb_audio_amp(int on);
+void set_beats_on(int en);
 #endif
 
