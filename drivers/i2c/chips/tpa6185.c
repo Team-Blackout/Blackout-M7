@@ -60,6 +60,10 @@ static char RING_AMP_ON[] =
 			{0x00, 0xC0, 0x2F, 0x00, 0x00, 0x00, 0x00};
 static char HANDSET_AMP_ON[] =
 			{0x00, 0xC0, 0x2F, 0x00, 0x00, 0x00, 0x00};
+static char BEATS_AMP_ON[] =
+			{0x00, 0x8C, 0x25, 0x57, 0x73, 0x4D, 0x0D};
+static char BEATS_AMP_OFF[] =
+			{0x00, 0x8C, 0x25, 0x57, 0x73, 0x4D, 0x0D};
 static char LINEOUT_AMP_ON[] =
 			{0x00, 0xC0, 0x2F, 0x00, 0x00, 0x00, 0x00};
 static char AMP_0FF[] = {0x00, 0x90};
@@ -366,6 +370,24 @@ void set_handset_amp(int on)
 void set_usb_audio_amp(int on)
 {
 	set_amp(on, LINEOUT_AMP_ON);
+}
+
+void set_beats_on(int en)
+{
+	pr_aud_info("%s: %d\n", __func__, en);
+	en = 1;
+	pr_aud_info("BEATS HACK - %s: %d\n", __func__, en);
+	mutex_lock(&hp_amp_lock);
+	if (en) {
+		tpa6185_i2c_write(BEATS_AMP_ON, AMP_ON_CMD_LEN);
+		pr_info("%s: en(%d) reg_value[5]=%2x, reg_value[6]=%2x\n", __func__,  \
+				en, BEATS_AMP_ON[5], BEATS_AMP_ON[6]);
+	} else {
+		tpa6185_i2c_write(BEATS_AMP_OFF, AMP_ON_CMD_LEN);
+		pr_info("%s: en(%d)  reg_value[5]=%2x, reg_value[6]=%2x\n", __func__,  \
+				en, BEATS_AMP_OFF[5], BEATS_AMP_OFF[6]);
+	}
+	mutex_unlock(&hp_amp_lock);
 }
 
 int update_amp_parameter(int mode)
