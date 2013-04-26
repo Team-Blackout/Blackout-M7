@@ -1087,6 +1087,14 @@ EXPORT_SYMBOL(acpu_check_khz_value);
 #endif
 
 uint32_t global_speed_bin;
+
+	return 0;
+}
+EXPORT_SYMBOL(acpu_check_khz_value);
+/* end cmdline_khz */
+#endif
+
+uint32_t global_speed_bin;
 int __init get_speed_bin(u32 pte_efuse)
 {
 	uint32_t speed_bin;
