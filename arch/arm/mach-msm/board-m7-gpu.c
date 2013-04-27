@@ -245,7 +245,7 @@ static struct platform_device device_kgsl_3d0 = {
 void __init m7_init_gpu(void)
 {
 	if (cpu_is_apq8064ab())
-		kgsl_3d0_pdata.pwrlevel[0].gpu_freq = 450000000;
+		kgsl_3d0_pdata.pwrlevel[0].gpu_freq = 400000000;
 
 	platform_device_register(&device_kgsl_3d0);
 }
