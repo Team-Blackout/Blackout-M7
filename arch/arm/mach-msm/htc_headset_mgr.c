@@ -679,11 +679,11 @@ static void mic_detect_work_func(struct work_struct *work)
 		break;
 	case HEADSET_NO_MIC:
 		new_state |= BIT_HEADSET_NO_MIC;
-		HS_LOG("HEADSET_NO_MIC");
+		HS_LOG("HEADSET_BEATS");
 		break;
 	case HEADSET_MIC:
 		new_state |= BIT_HEADSET;
-		HS_LOG("HEADSET_MIC");
+		HS_LOG("HEADSET_BEATS");
 		break;
 	case HEADSET_METRICO:
 		new_state |= BIT_HEADSET;
@@ -956,11 +956,11 @@ static void insert_detect_work_func(struct work_struct *work)
 
 	case HEADSET_NO_MIC:
 		new_state |= BIT_HEADSET_NO_MIC;
-		HS_LOG_TIME("HEADSET_NO_MIC");
+		HS_LOG_TIME("HEADSET_BEATS (UNSTABLE)");
 		break;
 	case HEADSET_MIC:
 		new_state |= BIT_HEADSET;
-		HS_LOG_TIME("HEADSET_MIC");
+		HS_LOG_TIME("HEADSET_BEATS (UNSTABLE)");
 		break;
 	case HEADSET_METRICO:
 		mic = HEADSET_UNSTABLE;
@@ -968,7 +968,7 @@ static void insert_detect_work_func(struct work_struct *work)
 		break;
 	case HEADSET_UNKNOWN_MIC:
 		new_state |= BIT_HEADSET_NO_MIC;
-		HS_LOG_TIME("HEADSET_UNKNOWN_MIC");
+		HS_LOG_TIME("HEADSET_BEATS (UNSTABLE)");
 		break;
 	case HEADSET_TV_OUT:
 		new_state |= BIT_TV_OUT;
