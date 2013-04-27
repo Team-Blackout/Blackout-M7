@@ -247,6 +247,7 @@ void __init m7_init_gpu(void)
 	unsigned int version = socinfo_get_version();
 
 	if (cpu_is_apq8064ab())
+<<<<<<< HEAD
 		kgsl_3d0_pdata.pwrlevel[0].gpu_freq = 450000000;
 	if (SOCINFO_VERSION_MAJOR(version) == 2) {
 		kgsl_3d0_pdata.chipid = ADRENO_CHIPID(3, 2, 0, 2);
@@ -257,6 +258,9 @@ void __init m7_init_gpu(void)
 		else
 			kgsl_3d0_pdata.chipid = ADRENO_CHIPID(3, 2, 0, 0);
 	}
+=======
+		kgsl_3d0_pdata.pwrlevel[0].gpu_freq = 400000000;
+>>>>>>> 477f3fe... Logo2Menu picked from Tbalden at
 
 	platform_device_register(&device_kgsl_3d0);
 }
