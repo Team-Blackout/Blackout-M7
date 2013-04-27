@@ -996,6 +996,15 @@ config TOUCHSCREEN_SYNAPTICS_3K
 	depends on I2C
 	help
 	  This enables support for Synaptics RMI4 over I2C based touchscreens.
+	  
+config SYNAPTICS_LOGO2MENU
+        tristate "Logo2menu button for SYNAPTICS_3k based Htc One touchscreens"
+        depends on TOUCHSCREEN_SYNAPTICS_3K
+        default n
+        
+config TOUCHSCREEN_SYNAPTICS_SWEEP2WAKE
+        tristate "Sweep2Wake for SYNAPTICS_3k based touchscreens"
+        default y
 
 config TOUCHSCREEN_MAX11871
         tristate "Maxim max11871 touchscreen"
