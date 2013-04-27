@@ -2906,11 +2906,15 @@ CONFIG_USB_DEVICE_CLASS=y
 CONFIG_USB_SUSPEND=y
 CONFIG_USB_OTG=y
 <<<<<<< HEAD
+<<<<<<< HEAD
 CONFIG_USB_OTG_HOST=y
 # CONFIG_USB_OTG_WHITELIST is not set
 =======
 CONFIG_USB_OTG_WHITELIST=y
 >>>>>>> 73d01d5... adding stock config for recovery building
+=======
+# CONFIG_USB_OTG_WHITELIST is not set
+>>>>>>> f353e65... usb otg: removing whitelist config to let more devices use OTG host
 # CONFIG_USB_OTG_BLACKLIST_HUB is not set
 # CONFIG_USB_DWC3 is not set
 # CONFIG_USB_MON is not set
