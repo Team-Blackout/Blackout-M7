@@ -5,7 +5,6 @@
 # Rewritten to use lists instead of if-statements.
 #
 
-obj-$(CONFIG_KCONTROL_MODULE)  += gpu_msm/
 
 # GPIO must come after pinctrl as gpios may need to mux pins etc
 obj-y				+= pinctrl/

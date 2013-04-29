@@ -1,7 +1,0 @@
-menuconfig KCONTROL_MODULE
-
-tristate "Kernel modules for Showps Kcontrol"
-	help
-	  This is the kernel module driver for Show-p1984's Kcontrol application
-    
-    

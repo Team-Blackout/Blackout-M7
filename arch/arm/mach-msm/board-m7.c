@@ -2127,6 +2127,14 @@ static struct synaptics_virtual_key m7_vk_data[] = {
 		.y_range_max = 2920,
 	},
 	{
+		.index = 3,
+		.keycode = KEY_MENU,
+		.x_range_min = 500,
+		.x_range_max = 600,
+		.y_range_min = 2880,
+		.y_range_max = 2920,
+	},
+	{
 		.index = 0,
 	},
 };
@@ -2799,7 +2807,7 @@ static ssize_t virtual_syn_keys_show(struct kobject *kobj,
 	return sprintf(buf,
 		__stringify(EV_KEY) ":" __stringify(KEY_BACK)       ":157:2010:200:160"
 		":" __stringify(EV_KEY) ":" __stringify(KEY_HOME)   ":540:2010:200:160"
-		":" __stringify(EV_KEY) ":" __stringify(KEY_APP_SWITCH)   ":923:2010:200:160"
+		":" __stringify(EV_KEY) ":" __stringify(KEY_MENU)   ":323:2010:200:160"
 		"\n");
 
 }
