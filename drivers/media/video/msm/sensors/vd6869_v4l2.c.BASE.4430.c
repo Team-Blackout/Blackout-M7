@@ -42,7 +42,7 @@
 
 #define OTP_SIZE 16
 #define OTP_FUSE_SIZE 12
-#define OTP_WAIT_TIMEOUT 200
+#define OTP_WAIT_TIMEOUT 500
 
 DEFINE_MUTEX(vd6869_mut);
 DEFINE_MUTEX(vd6869_sensor_init_mut);
@@ -63,26 +63,6 @@ static struct msm_camera_i2c_reg_conf otp_settings_cut10[] = {
        {0x4500, 0x01},
        {0x44e4, 0x00},
        {0x4524, 0x00},
-       {0x4584, 0x01},
-       {0x44ec, 0x01},
-       {0x44ed, 0x80},
-       {0x44f0, 0x04},
-       {0x44f1, 0xb0},
-       {0x452c, 0x01},
-       {0x452d, 0x80},
-       {0x4530, 0x04},
-       {0x4531, 0xb0},
-	{0x3305, 0x00},
-       {0x3303, 0x01},
-	{0x3304, 0x00},
-       {0x3301, 0x02},
-};
-
-static struct msm_camera_i2c_reg_conf otp_settings_cut10_NO_ECC[] = {
-       {0x44c0, 0x01},
-       {0x4500, 0x01},
-       {0x44e4, 0x01},
-       {0x4524, 0x01},
        {0x4584, 0x01},
        {0x44ec, 0x01},
        {0x44ed, 0x80},
@@ -1442,7 +1422,6 @@ static struct msm_camera_i2c_reg_conf vd6869_recommend_settings[] = {
 	{0x4280, 0x02},
 	{0x4100, 0x01},
 	{0x4440, 0x7f},
-
 };
 
 static struct msm_camera_i2c_reg_conf vd6869_recommend_2_settings[] = {
@@ -1475,6 +1454,7 @@ static struct msm_camera_i2c_reg_conf vd6869_recommend_3_settings[] = {
 	{0x4a27, 0x40},
 	{0x4a28, 0x00}, 
 	{0x4a29, 0x40},
+
 	{0x33a4, 0x07}, 
 	{0x33a5, 0xC0},
 	{0x33a6, 0x00}, 
@@ -1489,6 +1469,7 @@ static struct msm_camera_i2c_reg_conf vd6869_recommend_3_settings[] = {
 	{0x4d27, 0x40},
 	{0x4d28, 0x00}, 
 	{0x4d29, 0x40},
+
 	{0x3399, 0x07}, 
 	{0x339a, 0xC0},
 	{0x339b, 0x00}, 
@@ -1561,9 +1542,6 @@ static struct msm_sensor_output_info_t vd6869_dimensions[] = {
 		.op_pixel_clk = 230400000,
 		.binning_factor = 1,
 		.is_hdr = 0,
-		.yushan_status_line_enable = 1,
- 		.yushan_status_line = 2,
-		.yushan_sensor_status_line = 2,
 	},
 	{
 		.x_output = 0x540, 
@@ -1574,9 +1552,6 @@ static struct msm_sensor_output_info_t vd6869_dimensions[] = {
 		.op_pixel_clk = 230400000,
 		.binning_factor = 2,
 		.is_hdr = 0,
-		.yushan_status_line_enable = 1,
-		.yushan_status_line = 2,
-		.yushan_sensor_status_line = 2,
 	},
 	{
 		.x_output = 0xA80, 
@@ -1587,9 +1562,6 @@ static struct msm_sensor_output_info_t vd6869_dimensions[] = {
 		.op_pixel_clk = 230400000,
 		.binning_factor = 1,
 		.is_hdr = 0,
-		.yushan_status_line_enable = 1,
-		.yushan_status_line = 2,
-		.yushan_sensor_status_line = 2,
 	},
 	{
 		.x_output = 0x540, 
@@ -1600,9 +1572,6 @@ static struct msm_sensor_output_info_t vd6869_dimensions[] = {
 		.op_pixel_clk = 230400000,
 		.binning_factor = 2,
 		.is_hdr = 0,
-		.yushan_status_line_enable = 1,
-		.yushan_status_line = 2,
-		.yushan_sensor_status_line = 2,
 	},
 	{
 		.x_output = 0x7a0, 
@@ -1613,9 +1582,6 @@ static struct msm_sensor_output_info_t vd6869_dimensions[] = {
 		.op_pixel_clk = 230400000,
 		.binning_factor = 1,
 		.is_hdr = 1,
-		.yushan_status_line_enable = 1,
-		.yushan_status_line = 2,
-		.yushan_sensor_status_line = 2,
 	},
 	{
 		.x_output = 0x800, 
@@ -1626,9 +1592,6 @@ static struct msm_sensor_output_info_t vd6869_dimensions[] = {
 		.op_pixel_clk = 230400000,
 		.binning_factor = 1,
 		.is_hdr = 0,
-		.yushan_status_line_enable = 1,
-		.yushan_status_line = 2,
-		.yushan_sensor_status_line = 2,
 	},
 	{ 
 		.x_output = 0x540, 
@@ -1639,9 +1602,6 @@ static struct msm_sensor_output_info_t vd6869_dimensions[] = {
 		.op_pixel_clk = 230400000,
 		.binning_factor = 2,
 		.is_hdr = 0,
-		.yushan_status_line_enable = 1,
-		.yushan_status_line = 2,
-		.yushan_sensor_status_line = 2,
 	},
 	{ 
 		.x_output = 0xA80, 
@@ -1652,9 +1612,6 @@ static struct msm_sensor_output_info_t vd6869_dimensions[] = {
 		.op_pixel_clk = 230400000,
 		.binning_factor = 1,
 		.is_hdr = 0,
-		.yushan_status_line_enable = 1,
-		.yushan_status_line = 2,
-		.yushan_sensor_status_line = 2,
 	},
 	{
 		.x_output = 0xA80, 
@@ -1665,58 +1622,42 @@ static struct msm_sensor_output_info_t vd6869_dimensions[] = {
 		.op_pixel_clk = 230400000,
 		.binning_factor = 1,
 		.is_hdr = 0,
-		.yushan_status_line_enable = 1,
-		.yushan_status_line = 2,
-		.yushan_sensor_status_line = 2,
 	},
 };
 
 
 static struct msm_camera_i2c_reg_conf vd6869_prev_settings_cut10[] = {
 
-	{0x5800, 0x00},	
-	{0x5840, 0x00},	
-	{0x5844, 0x00},	
-	{0x5860, 0x15},	
-	{0x58a0, 0x3c},	
+	{0x900, 0x00}, 
+	{0x344, 0x00}, 
+	{0x345, 0x00},
+	{0x346, 0x00}, 
+	{0x347, 0x00},
+	{0x348, 0x0a}, 
+	{0x349, 0x7f},
+	{0x34a, 0x05}, 
+	{0x34b, 0xef},
+	{0x34c, 0x05}, 
+	{0x34d, 0x40},
+	{0x34e, 0x02}, 
+	{0x34f, 0xf8},
+	{0x382, 0x00}, 
+	{0x383, 0x03},
+	{0x386, 0x00}, 
+	{0x387, 0x03},
 
-
-	{0x900, 0x01}, 
-
-       {0x344, 0x00}, 
-       {0x345, 0x00},
-       {0x346, 0x00}, 
-       {0x347, 0x00},
-       {0x348, 0x0a}, 
-       {0x349, 0x7f},
-       {0x34a, 0x05}, 
-       {0x34b, 0xef},
-       {0x34c, 0x05}, 
-       {0x34d, 0x40},
-       {0x34e, 0x02}, 
-       {0x34f, 0xf8},
-       {0x382, 0x00}, 
-       {0x383, 0x01},
-       {0x386, 0x00}, 
-       {0x387, 0x01},
-
-
-	{0x0304, 0x00},
-	{0x0305, 0x02},     
-	{0x0306, 0x00},
-	{0x0307, 0x30},     
 
 	{0x300, 0x00}, 
-	{0x301, 0x0a},
+	{0x301, 0x05},
 	{0x302, 0x00}, 
 	{0x303, 0x01},
 	{0x30a, 0x00}, 
-	{0x30b, 0x02},
+	{0x30b, 0x01},
 
-       {0x340, 0x03}, 
-       {0x341, 0x30},
-       {0x342, 0x09}, 
-       {0x343, 0x60},
+	{0x340, 0x05}, 
+	{0x341, 0x00},
+	{0x342, 0x0b}, 
+	{0x343, 0xb8},
 
 	{0x3339, 0x00}, 
 	{0x333A, 0x00}, 
@@ -1743,13 +1684,6 @@ static struct msm_camera_i2c_reg_conf vd6869_prev_settings_cut10[] = {
 };
 
 static struct msm_camera_i2c_reg_conf vd6869_video_settings_cut10[] = {
-
-	{0x5800, 0xe0},	
-	{0x5840, 0xc0},	
-	{0x5844, 0x01},	
-	{0x5860, 0x14},	
-	{0x58a0, 0x00},	
-
 	{0x900, 0x00}, 
 
 
@@ -1771,11 +1705,6 @@ static struct msm_camera_i2c_reg_conf vd6869_video_settings_cut10[] = {
 	{0x387, 0x01},
 
 
-
-	{0x0304, 0x00},
-	{0x0305, 0x02},     
-	{0x0306, 0x00},
-	{0x0307, 0x30},     
 
 
 	{0x300, 0x00}, 
@@ -1820,12 +1749,6 @@ static struct msm_camera_i2c_reg_conf vd6869_video_settings_cut10[] = {
 };
 
 static struct msm_camera_i2c_reg_conf vd6869_zoe_settings_cut10[] = {
-	{0x5800, 0xe0},	
-	{0x5840, 0xc0},	
-	{0x5844, 0x01},	
-	{0x5860, 0x14},	
-	{0x58a0, 0x00},	
-
 	{0x900, 0x00}, 
 
 
@@ -1848,10 +1771,6 @@ static struct msm_camera_i2c_reg_conf vd6869_zoe_settings_cut10[] = {
 
 
 
-	{0x0304, 0x00},
-	{0x0305, 0x02},     
-	{0x0306, 0x00},
-	{0x0307, 0x30},     
 
 	{0x300, 0x00}, 
 	{0x301, 0x05},
@@ -1896,48 +1815,37 @@ static struct msm_camera_i2c_reg_conf vd6869_zoe_settings_cut10[] = {
 
 static struct msm_camera_i2c_reg_conf vd6869_fast_video_settings_cut10[] = {
 
-	{0x5800, 0x00},	
-	{0x5840, 0x00},	
-	{0x5844, 0x00},	
-	{0x5860, 0x15},	
-	{0x58a0, 0x3c},	
+	{0x900, 0x00}, 
 
+	{0x344, 0x00}, 
+	{0x345, 0x00},
+	{0x346, 0x00}, 
+	{0x347, 0x00},
+	{0x348, 0x0a}, 
+	{0x349, 0x7f},
+	{0x34a, 0x05}, 
+	{0x34b, 0xef},
+	{0x34c, 0x05}, 
+	{0x34d, 0x40},
+	{0x34e, 0x02}, 
+	{0x34f, 0xf8},
+	{0x382, 0x00}, 
+	{0x383, 0x03},
+	{0x386, 0x00}, 
+	{0x387, 0x03},
 
-	{0x900, 0x01}, 
-
-       {0x344, 0x00}, 
-       {0x345, 0x00},
-       {0x346, 0x00}, 
-       {0x347, 0x00},
-       {0x348, 0x0a}, 
-       {0x349, 0x7f},
-       {0x34a, 0x05}, 
-       {0x34b, 0xef},
-       {0x34c, 0x05}, 
-       {0x34d, 0x40},
-       {0x34e, 0x02}, 
-       {0x34f, 0xf8},
-       {0x382, 0x00}, 
-       {0x383, 0x01},
-       {0x386, 0x00}, 
-       {0x387, 0x01},
-
-	{0x0304, 0x00},
-	{0x0305, 0x02},     
-	{0x0306, 0x00},
-	{0x0307, 0x53},     
 
 	{0x300, 0x00}, 
-	{0x301, 0x0a},
+	{0x301, 0x05},
 	{0x302, 0x00}, 
 	{0x303, 0x01},
 	{0x30a, 0x00}, 
-	{0x30b, 0x02},
+	{0x30b, 0x01},
 
-       {0x340, 0x03}, 
-       {0x341, 0x30},
-       {0x342, 0x09}, 
-       {0x343, 0x60},
+	{0x340, 0x03}, 
+	{0x341, 0x38},
+	{0x342, 0x0b}, 
+	{0x343, 0xb8},
 
 	{0x3339, 0x00}, 
 	{0x333A, 0x00}, 
@@ -1964,12 +1872,6 @@ static struct msm_camera_i2c_reg_conf vd6869_fast_video_settings_cut10[] = {
 };
 
 static struct msm_camera_i2c_reg_conf vd6869_hdr_settings_cut10[] = {
-	{0x5800, 0xe0},	
-	{0x5840, 0xc0},	
-	{0x5844, 0x01},	
-	{0x5860, 0x14},	
-	{0x58a0, 0x00},	
-
 	{0x900, 0x00}, 
 
 	{0x344, 0x01}, 
@@ -1989,11 +1891,6 @@ static struct msm_camera_i2c_reg_conf vd6869_hdr_settings_cut10[] = {
 	{0x386, 0x00}, 
 	{0x387, 0x01},
 
-
-	{0x0304, 0x00},
-	{0x0305, 0x02},     
-	{0x0306, 0x00},
-	{0x0307, 0x30},     
 
 	{0x300, 0x00}, 
 	{0x301, 0x05},
@@ -2041,19 +1938,7 @@ static struct msm_camera_i2c_reg_conf vd6869_hdr_settings_cut10[] = {
 };
 
 static struct msm_camera_i2c_reg_conf vd6869_4_3_settings_cut10[] = {
-
-	{0x5800, 0xe0},	
-	{0x5840, 0xc0},	
-	{0x5844, 0x01},	
-	{0x5860, 0x14},	
-	{0x58a0, 0x00},	
-
 	{0x900, 0x00}, 
-
-	{0x0304, 0x00},
-	{0x0305, 0x02},     
-	{0x0306, 0x00},
-	{0x0307, 0x30},     
 
 	{0x300, 0x00}, 
 	{0x301, 0x05},
@@ -2103,12 +1988,6 @@ static struct msm_camera_i2c_reg_conf vd6869_4_3_settings_cut10[] = {
 
 static struct msm_camera_i2c_reg_conf vd6869_16_9_settings_non_hdr_cut10[] = {
 
-	{0x5800, 0xe0},	
-	{0x5840, 0xc0},	
-	{0x5844, 0x01},	
-	{0x5860, 0x14},	
-	{0x58a0, 0x00},	
-
 	{0x900, 0x00}, 
 	{0x344, 0x00}, 
 	{0x345, 0x00},
@@ -2126,11 +2005,6 @@ static struct msm_camera_i2c_reg_conf vd6869_16_9_settings_non_hdr_cut10[] = {
 	{0x383, 0x01},
 	{0x386, 0x00}, 
 	{0x387, 0x01},
-
-	{0x0304, 0x00},
-	{0x0305, 0x02},     
-	{0x0306, 0x00},
-	{0x0307, 0x30},     
 
 
 	{0x300, 0x00}, 
@@ -2173,13 +2047,9 @@ static struct msm_camera_i2c_reg_conf vd6869_recommand_cut10[]={
 {0x4584, 0x01},
 {0x4440, 0x42},
 {0x4103, 0x03},
-{0x6003, 0xF0},
-{0x6004, 0xA3},
-{0x6005, 0xA3},
-{0x6006, 0xF0},
-{0x6007, 0x02},
-{0x6008, 0x50},
-{0x6009, 0x26},
+{0x6000, 0x02},
+{0x6001, 0x0C},
+{0x6002, 0x5E},
 {0x600A, 0x90},
 {0x600B, 0x31},
 {0x600C, 0x86},
@@ -2208,153 +2078,180 @@ static struct msm_camera_i2c_reg_conf vd6869_recommand_cut10[]={
 {0x6023, 0x02},
 {0x6024, 0x0E},
 {0x6025, 0xC3},
-{0x6026, 0x02},
-{0x6027, 0x1A},
-{0x6028, 0x4D},
-{0x6029, 0xE0},
-{0x602A, 0x90},
-{0x602B, 0x38},
-{0x602C, 0xBB},
-{0x602D, 0xE0},
-{0x602E, 0xB4},
-{0x602F, 0x01},
-{0x6030, 0x6D},
-{0x6031, 0x90},
-{0x6032, 0x55},
-{0x6033, 0x6C},
-{0x6034, 0xE0},
-{0x6035, 0x54},
-{0x6036, 0x02},
-{0x6037, 0x90},
-{0x6038, 0x31},
-{0x6039, 0x4C},
-{0x603A, 0xB4},
-{0x603B, 0x02},
-{0x603C, 0x19},
-{0x603D, 0xE0},
-{0x603E, 0x90},
-{0x603F, 0x4D},
-{0x6040, 0xB9},
-{0x6041, 0xF0},
-{0x6042, 0xC3},
-{0x6043, 0x04},
-{0x6044, 0x90},
-{0x6045, 0x4A},
-{0x6046, 0xB9},
-{0x6047, 0xF0},
-{0x6048, 0x50},
-{0x6049, 0x09},
-{0x604A, 0x90},
-{0x604B, 0x31},
-{0x604C, 0x4B},
-{0x604D, 0xE0},
-{0x604E, 0x04},
-{0x604F, 0x90},
-{0x6050, 0x4A},
-{0x6051, 0xB8},
-{0x6052, 0xF0},
-{0x6053, 0x02},
-{0x6054, 0x3B},
-{0x6055, 0x52},
-{0x6056, 0xE0},
-{0x6057, 0x90},
-{0x6058, 0x4A},
-{0x6059, 0xB9},
-{0x605A, 0xF0},
-{0x605B, 0xC3},
-{0x605C, 0x04},
-{0x605D, 0x90},
-{0x605E, 0x4D},
-{0x605F, 0xB9},
-{0x6060, 0xF0},
-{0x6061, 0x50},
-{0x6062, 0x09},
-{0x6063, 0x90},
-{0x6064, 0x31},
-{0x6065, 0x4B},
-{0x6066, 0xE0},
-{0x6067, 0x04},
-{0x6068, 0x90},
-{0x6069, 0x4D},
-{0x606A, 0xB8},
-{0x606B, 0xF0},
-{0x606C, 0x02},
-{0x606D, 0x3B},
-{0x606E, 0x52},
-{0x606F, 0x90},
-{0x6070, 0x31},
-{0x6071, 0xC5},
-{0x6072, 0xE0},
-{0x6073, 0x90},
-{0x6074, 0x32},
-{0x6075, 0xA8},
-{0x6076, 0x60},
-{0x6077, 0x04},
-{0x6078, 0xF0},
-{0x6079, 0x02},
-{0x607A, 0x45},
-{0x607B, 0xFB},
-{0x607C, 0xF0},
-{0x607D, 0x02},
-{0x607E, 0x46},
-{0x607F, 0x17},
-{0x6080, 0x90},
-{0x6081, 0x31},
-{0x6082, 0x4A},
-{0x6083, 0xE0},
-{0x6084, 0x90},
-{0x6085, 0x4D},
-{0x6086, 0xB5},
-{0x6087, 0xF0},
-{0x6088, 0x90},
-{0x6089, 0x4A},
-{0x608A, 0xB5},
-{0x608B, 0xF0},
-{0x608C, 0x90},
-{0x608D, 0x31},
-{0x608E, 0x49},
-{0x608F, 0xE0},
-{0x6090, 0x90},
-{0x6091, 0x4D},
-{0x6092, 0xB4},
-{0x6093, 0xF0},
-{0x6094, 0x90},
-{0x6095, 0x4A},
-{0x6096, 0xB4},
-{0x6097, 0xF0},
-{0x6098, 0x12},
-{0x6099, 0x3C},
-{0x609A, 0xB1},
-{0x609B, 0x02},
-{0x609C, 0x4A},
-{0x609D, 0xBF},
-{0x609E, 0x90},
-{0x609F, 0x31},
-{0x60A0, 0x4C},
-{0x60A1, 0xE0},
-{0x60A2, 0x90},
-{0x60A3, 0x4D},
-{0x60A4, 0xB9},
-{0x60A5, 0xF0},
-{0x60A6, 0x90},
-{0x60A7, 0x4A},
-{0x60A8, 0xB9},
-{0x60A9, 0xF0},
-{0x60AA, 0x90},
-{0x60AB, 0x31},
-{0x60AC, 0x4B},
-{0x60AD, 0xE0},
-{0x60AE, 0x90},
-{0x60AF, 0x4D},
-{0x60B0, 0xB8},
-{0x60B1, 0xF0},
-{0x60B2, 0x90},
-{0x60B3, 0x4A},
-{0x60B4, 0xB8},
-{0x60B5, 0xF0},
-{0x60B6, 0x02},
-{0x60B7, 0x3B},
-{0x60B8, 0x52},
+{0x602A, 0x7A},
+{0x602B, 0x33},
+{0x602C, 0x79},
+{0x602D, 0x39},
+{0x602E, 0x75},
+{0x602F, 0x0F},
+{0x6030, 0x01},
+{0x6031, 0x75},
+{0x6032, 0x10},
+{0x6033, 0x33},
+{0x6034, 0x75},
+{0x6035, 0x11},
+{0x6036, 0x39},
+{0x6037, 0x78},
+{0x6038, 0x0F},
+{0x6039, 0xE4},
+{0x603A, 0x75},
+{0x603B, 0xF0},
+{0x603C, 0x01},
+{0x603D, 0x12},
+{0x603E, 0x50},
+{0x603F, 0xD8},
+{0x6040, 0x12},
+{0x6041, 0x13},
+{0x6042, 0x80},
+{0x6043, 0xFD},
+{0x6044, 0x05},
+{0x6045, 0x0C},
+{0x6046, 0xE5},
+{0x6047, 0x0C},
+{0x6048, 0xAE},
+{0x6049, 0x0B},
+{0x604A, 0x70},
+{0x604B, 0x02},
+{0x604C, 0x05},
+{0x604D, 0x0B},
+{0x604E, 0x14},
+{0x604F, 0x78},
+{0x6050, 0x02},
+{0x6051, 0xC3},
+{0x6052, 0x33},
+{0x6053, 0xCE},
+{0x6054, 0x33},
+{0x6055, 0xCE},
+{0x6056, 0xD8},
+{0x6057, 0xF9},
+{0x6058, 0x25},
+{0x6059, 0x13},
+{0x605A, 0xF5},
+{0x605B, 0x82},
+{0x605C, 0xE5},
+{0x605D, 0x12},
+{0x605E, 0x3E},
+{0x605F, 0xF5},
+{0x6060, 0x83},
+{0x6061, 0xA3},
+{0x6062, 0xA3},
+{0x6063, 0xED},
+{0x6064, 0xF0},
+{0x6065, 0xAB},
+{0x6066, 0x0F},
+{0x6067, 0xAA},
+{0x6068, 0x10},
+{0x6069, 0xA9},
+{0x606A, 0x11},
+{0x606B, 0x12},
+{0x606C, 0x13},
+{0x606D, 0x80},
+{0x606E, 0xFD},
+{0x606F, 0x05},
+{0x6070, 0x0C},
+{0x6071, 0xE5},
+{0x6072, 0x0C},
+{0x6073, 0xAE},
+{0x6074, 0x0B},
+{0x6075, 0x70},
+{0x6076, 0x02},
+{0x6077, 0x05},
+{0x6078, 0x0B},
+{0x6079, 0x14},
+{0x607A, 0x78},
+{0x607B, 0x02},
+{0x607C, 0xC3},
+{0x607D, 0x33},
+{0x607E, 0xCE},
+{0x607F, 0x33},
+{0x6080, 0xCE},
+{0x6081, 0xD8},
+{0x6082, 0xF9},
+{0x6083, 0x25},
+{0x6084, 0x13},
+{0x6085, 0xF5},
+{0x6086, 0x82},
+{0x6087, 0xE5},
+{0x6088, 0x12},
+{0x6089, 0x3E},
+{0x608A, 0xF5},
+{0x608B, 0x83},
+{0x608C, 0xA3},
+{0x608D, 0xA3},
+{0x608E, 0xED},
+{0x608F, 0xF0},
+{0x6090, 0x7A},
+{0x6091, 0x33},
+{0x6092, 0x79},
+{0x6093, 0xC5},
+{0x6094, 0x75},
+{0x6095, 0x0F},
+{0x6096, 0x01},
+{0x6097, 0x75},
+{0x6098, 0x10},
+{0x6099, 0x33},
+{0x609A, 0x75},
+{0x609B, 0x11},
+{0x609C, 0xC5},
+{0x609D, 0xE4},
+{0x609E, 0xF5},
+{0x609F, 0x09},
+{0x60A0, 0x78},
+{0x60A1, 0x0F},
+{0x60A2, 0xE4},
+{0x60A3, 0x75},
+{0x60A4, 0xF0},
+{0x60A5, 0x01},
+{0x60A6, 0x12},
+{0x60A7, 0x50},
+{0x60A8, 0xD8},
+{0x60A9, 0x12},
+{0x60AA, 0x13},
+{0x60AB, 0x80},
+{0x60AC, 0xFD},
+{0x60AD, 0x05},
+{0x60AE, 0x0C},
+{0x60AF, 0xE5},
+{0x60B0, 0x0C},
+{0x60B1, 0xAE},
+{0x60B2, 0x0B},
+{0x60B3, 0x70},
+{0x60B4, 0x02},
+{0x60B5, 0x05},
+{0x60B6, 0x0B},
+{0x60B7, 0x14},
+{0x60B8, 0x78},
+{0x60B9, 0x02},
+{0x60BA, 0xC3},
+{0x60BB, 0x33},
+{0x60BC, 0xCE},
+{0x60BD, 0x33},
+{0x60BE, 0xCE},
+{0x60BF, 0xD8},
+{0x60C0, 0xF9},
+{0x60C1, 0x25},
+{0x60C2, 0x13},
+{0x60C3, 0xF5},
+{0x60C4, 0x82},
+{0x60C5, 0xE5},
+{0x60C6, 0x12},
+{0x60C7, 0x3E},
+{0x60C8, 0xF5},
+{0x60C9, 0x83},
+{0x60CA, 0xA3},
+{0x60CB, 0xA3},
+{0x60CC, 0xED},
+{0x60CD, 0xF0},
+{0x60CE, 0x05},
+{0x60CF, 0x09},
+{0x60D0, 0xE5},
+{0x60D1, 0x09},
+{0x60D2, 0xB4},
+{0x60D3, 0x04},
+{0x60D4, 0xCB},
+{0x60D5, 0x02},
+{0x60D6, 0x0C},
+{0x60D7, 0xC2},
 {0x60D8, 0xFA},
 {0x60D9, 0xE6},
 {0x60DA, 0xFB},
@@ -2420,64 +2317,46 @@ static struct msm_camera_i2c_reg_conf vd6869_recommand_cut10[]={
 {0x611C, 0x02},
 {0x611D, 0x27},
 {0x611E, 0x90},
-{0x6120, 0xAB},
-{0x6121, 0x0F},
-{0x6122, 0xAA},
-{0x6123, 0x0E},
-{0x6124, 0x85},
-{0x6125, 0x0D},
-{0x6126, 0x17},
-{0x6127, 0x85},
-{0x6128, 0x0C},
-{0x6129, 0x16},
-{0x612A, 0x02},
-{0x612B, 0x3D},
-{0x612C, 0xEB},
-{0x612D, 0xA3},
-{0x612E, 0xA3},
-{0x612F, 0xF0},
-{0x6130, 0x90},
-{0x6131, 0x4A},
-{0x6132, 0xC8},
+{0x6120, 0x90},
+{0x6121, 0x45},
+{0x6122, 0x84},
+{0x6123, 0x74},
+{0x6124, 0x01},
+{0x6125, 0xF0},
+{0x6126, 0x90},
+{0x6127, 0x44},
+{0x6128, 0xC0},
+{0x6129, 0x00},
+{0x612A, 0x00},
+{0x612B, 0x00},
+{0x612C, 0x00},
+{0x612D, 0x00},
+{0x612E, 0x00},
+{0x612F, 0x00},
+{0x6130, 0x00},
+{0x6131, 0x00},
+{0x6132, 0x00},
 {0x6133, 0x02},
-{0x6134, 0x50},
-{0x6135, 0x03},
-{0x6136, 0xF0},
-{0x6137, 0x90},
-{0x6138, 0x31},
-{0x6139, 0x53},
-{0x613A, 0xE0},
-{0x613B, 0x90},
-{0x613C, 0x4D},
-{0x613D, 0xC4},
-{0x613E, 0xF0},
-{0x613F, 0x90},
-{0x6140, 0x4A},
-{0x6141, 0xC4},
-{0x6142, 0xF0},
-{0x6143, 0x90},
-{0x6144, 0x31},
-{0x6145, 0x54},
-{0x6146, 0xE0},
-{0x6147, 0x90},
-{0x6148, 0x4D},
-{0x6149, 0xC5},
-{0x614A, 0xF0},
-{0x614B, 0x90},
-{0x614C, 0x4A},
-{0x614D, 0xC5},
-{0x614E, 0xF0},
-{0x614F, 0x02},
-{0x6150, 0x3B},
-{0x6151, 0x52},
-{0x6152, 0x90},
-{0x6153, 0x4D},
-{0x6154, 0xC8},
-{0x6155, 0x74},
-{0x6156, 0x02},
-{0x6157, 0xF0},
-{0x6158, 0x80},
-{0x6159, 0xD3},
+{0x6134, 0x2B},
+{0x6135, 0xF1},
+{0x613A, 0x00},
+{0x613B, 0x00},
+{0x613C, 0x00},
+{0x613D, 0x00},
+{0x613E, 0x00},
+{0x613F, 0x00},
+{0x6140, 0x00},
+{0x6141, 0x00},
+{0x6142, 0x00},
+{0x6143, 0xF0},
+{0x6144, 0x90},
+{0x6145, 0x45},
+{0x6146, 0x84},
+{0x6147, 0xE4},
+{0x6148, 0xF0},
+{0x6149, 0x02},
+{0x614A, 0x2D},
+{0x614B, 0x20},
 {0x615A, 0x85},
 {0x615B, 0x0A},
 {0x615C, 0x82},
@@ -2496,7 +2375,7 @@ static struct msm_camera_i2c_reg_conf vd6869_recommand_cut10[]={
 {0x6169, 0xEF},
 {0x616A, 0xC3},
 {0x616B, 0x94},
-{0x616C, 0x11},
+{0x616C, 0x10},
 {0x616D, 0x50},
 {0x616E, 0x1C},
 {0x616F, 0x85},
@@ -2530,51 +2409,60 @@ static struct msm_camera_i2c_reg_conf vd6869_recommand_cut10[]={
 {0x618B, 0x02},
 {0x618C, 0x3D},
 {0x618D, 0x4C},
-{0x618E, 0xE0},
-{0x618F, 0x7A},
-{0x6190, 0x4A},
-{0x6191, 0x90},
-{0x6192, 0x38},
-{0x6193, 0xBB},
-{0x6194, 0xE0},
-{0x6195, 0x90},
-{0x6196, 0x31},
-{0x6197, 0x54},
-{0x6198, 0xC3},
-{0x6199, 0xB4},
-{0x619A, 0x01},
-{0x619B, 0x05},
-{0x619C, 0xE0},
-{0x619D, 0x94},
-{0x619E, 0x01},
-{0x619F, 0x80},
-{0x61A0, 0x01},
-{0x61A1, 0xE0},
-{0x61A2, 0x90},
-{0x61A3, 0x4D},
-{0x61A4, 0xC5},
-{0x61A5, 0xF0},
-{0x61A6, 0x8A},
-{0x61A7, 0x83},
-{0x61A8, 0xF0},
+{0x6190, 0x90},
+{0x6191, 0x38},
+{0x6192, 0x6B},
+{0x6193, 0xE0},
+{0x6194, 0x54},
+{0x6195, 0x0F},
+{0x6196, 0xB5},
+{0x6197, 0x01},
+{0x6198, 0x10},
+{0x6199, 0xE0},
+{0x619A, 0x44},
+{0x619B, 0x40},
+{0x619C, 0xF0},
+{0x619D, 0xE0},
+{0x619E, 0x54},
+{0x619F, 0xF0},
+{0x61A0, 0x44},
+{0x61A1, 0x01},
+{0x61A2, 0xF0},
+{0x61A3, 0x90},
+{0x61A4, 0x38},
+{0x61A5, 0xBA},
+{0x61A6, 0xE0},
+{0x61A7, 0x80},
+{0x61A8, 0x16},
 {0x61A9, 0x90},
-{0x61AA, 0x31},
-{0x61AB, 0x53},
+{0x61AA, 0x38},
+{0x61AB, 0x6B},
 {0x61AC, 0xE0},
-{0x61AD, 0x50},
-{0x61AE, 0x02},
-{0x61AF, 0x94},
-{0x61B0, 0x01},
-{0x61B1, 0x90},
-{0x61B2, 0x4D},
-{0x61B3, 0xC4},
-{0x61B4, 0xF0},
-{0x61B5, 0x8A},
-{0x61B6, 0x83},
-{0x61B7, 0xF0},
-{0x61B8, 0x02},
-{0x61B9, 0x4A},
-{0x61BA, 0xC3},
+{0x61AD, 0xFF},
+{0x61AE, 0x54},
+{0x61AF, 0x0F},
+{0x61B0, 0xFE},
+{0x61B1, 0xEF},
+{0x61B2, 0x54},
+{0x61B3, 0xF0},
+{0x61B4, 0xFF},
+{0x61B5, 0xEE},
+{0x61B6, 0x04},
+{0x61B7, 0x54},
+{0x61B8, 0x0F},
+{0x61B9, 0x4F},
+{0x61BA, 0xF0},
+{0x61BB, 0xE0},
+{0x61BC, 0x54},
+{0x61BD, 0x0F},
+{0x61BE, 0x14},
+{0x61BF, 0x90},
+{0x61C0, 0x32},
+{0x61C1, 0xFB},
+{0x61C2, 0xF0},
+{0x61C3, 0x02},
+{0x61C4, 0x02},
+{0x61C5, 0x12},
 {0x61CA, 0x90},
 {0x61CB, 0x54},
 {0x61CC, 0x00},
@@ -3075,7 +2963,7 @@ static struct msm_camera_i2c_reg_conf vd6869_recommand_cut10[]={
 {0x63C2, 0x09},
 {0x63C3, 0x02},
 {0x63C4, 0x3B},
-{0x63C5, 0x39},
+{0x63C5, 0x1A},
 {0x63CA, 0xE5},
 {0x63CB, 0x09},
 {0x63CC, 0x75},
@@ -4026,9 +3914,9 @@ static struct msm_camera_i2c_reg_conf vd6869_recommand_cut10[]={
 {0x6798, 0x02},
 {0x6799, 0x24},
 {0x679A, 0x33},
-{0x679B, 0x02},
-{0x679C, 0x4B},
-{0x679D, 0xD1},
+{0x67A0, 0x02},
+{0x67A1, 0x4B},
+{0x67A2, 0xD1},
 {0x67AA, 0x90},
 {0x67AB, 0x54},
 {0x67AC, 0xA8},
@@ -4087,38 +3975,29 @@ static struct msm_camera_i2c_reg_conf vd6869_recommand_cut10[]={
 {0x67E1, 0x02},
 {0x67E2, 0x53},
 {0x67E3, 0x82},
-{0x67EE, 0x02},
-{0x67EF, 0x29},
-{0x67F0, 0x7E},
-{0x67F1, 0x02},
-{0x67F2, 0x29},
-{0x67F3, 0xEE},
-{0x67F4, 0x02},
-{0x67F5, 0x2A},
-{0x67F6, 0x44},
-{0x67F7, 0xE0},
-{0x67F8, 0x44},
-{0x67F9, 0x01},
-{0x67FA, 0x02},
-{0x67FB, 0x18},
-{0x67FC, 0x59},
-{0x67FD, 0x02},
-{0x67FE, 0x24},
-{0x67FF, 0xDB},
-{0x4106, 0x18},
-{0x4107, 0x74},
+{0x67EA, 0x02},
+{0x67EB, 0x29},
+{0x67EC, 0x7E},
+{0x67ED, 0x02},
+{0x67EE, 0x29},
+{0x67EF, 0xEE},
+{0x67F0, 0x02},
+{0x67F1, 0x2A},
+{0x67F2, 0x44},
+{0x4106, 0x0C},
+{0x4107, 0x38},
 {0x410A, 0x00},
-{0x410B, 0x09},
-{0x410F, 0x03},
-{0x4112, 0x4A},
-{0x4113, 0xBC},
+{0x410B, 0x00},
+{0x410F, 0x02},
+{0x4112, 0x0E},
+{0x4113, 0xAA},
 {0x4116, 0x00},
-{0x4117, 0x80},
+{0x4117, 0x0A},
 {0x411B, 0x02},
-{0x411E, 0x3B},
-{0x411F, 0x51},
+{0x411E, 0x0C},
+{0x411F, 0x84},
 {0x4122, 0x00},
-{0x4123, 0x29},
+{0x4123, 0x2A},
 {0x4127, 0x02},
 {0x412A, 0x1D},
 {0x412B, 0x77},
@@ -4135,10 +4014,10 @@ static struct msm_camera_i2c_reg_conf vd6869_recommand_cut10[]={
 {0x4146, 0x01},
 {0x4147, 0x5A},
 {0x414B, 0x02},
-{0x414E, 0x45},
-{0x414F, 0xEB},
-{0x4152, 0x00},
-{0x4153, 0x6F},
+{0x414E, 0x01},
+{0x414F, 0xDE},
+{0x4152, 0x01},
+{0x4153, 0x90},
 {0x4157, 0x02},
 {0x415A, 0x26},
 {0x415B, 0x83},
@@ -4163,12 +4042,12 @@ static struct msm_camera_i2c_reg_conf vd6869_recommand_cut10[]={
 {0x418A, 0x29},
 {0x418B, 0x6A},
 {0x418E, 0x07},
-{0x418F, 0xEE},
+{0x418F, 0xEA},
 {0x4193, 0x02},
 {0x4196, 0x29},
 {0x4197, 0xDE},
 {0x419A, 0x07},
-{0x419B, 0xF1},
+{0x419B, 0xED},
 {0x419F, 0x02},
 {0x41A2, 0x36},
 {0x41A3, 0x78},
@@ -4202,11 +4081,11 @@ static struct msm_camera_i2c_reg_conf vd6869_recommand_cut10[]={
 {0x41E7, 0x02},
 {0x41EA, 0x18},
 {0x41EB, 0x57},
-{0x41EE, 0x07},
-{0x41EF, 0xF7},
-{0x41F3, 0x02},
+{0x41EE, 0x00},
+{0x41EF, 0x44},
+{0x41F3, 0x03},
 {0x41F6, 0x3B},
-{0x41F7, 0x0A},
+{0x41F7, 0x10},
 {0x41FA, 0x03},
 {0x41FB, 0xC3},
 {0x41FF, 0x02},
@@ -4233,45 +4112,21 @@ static struct msm_camera_i2c_reg_conf vd6869_recommand_cut10[]={
 {0x4232, 0x4B},
 {0x4233, 0xCE},
 {0x4236, 0x07},
-{0x4237, 0x9B},
+{0x4237, 0xA0},
 {0x423B, 0x02},
 {0x423E, 0x2A},
 {0x423F, 0x34},
 {0x4242, 0x07},
-{0x4243, 0xF4},
+{0x4243, 0xF0},
 {0x4247, 0x02},
-{0x424A, 0x24},
-{0x424B, 0x92},
-{0x424E, 0x07},
-{0x424F, 0xFD},
-{0x4253, 0x02},
-{0x4256, 0x27},
-{0x4257, 0xA6},
-{0x425A, 0x00},
-{0x425B, 0xFE},
-{0x425F, 0x03},
-{0x4262, 0x3D},
-{0x4263, 0xE4},
-{0x4266, 0x01},
-{0x4267, 0x20},
-{0x426B, 0x02},
-{0x426E, 0x4A},
-{0x426F, 0xC2},
-{0x4272, 0x01},
-{0x4273, 0x8E},
-{0x4277, 0x02},
-{0x427A, 0x19},
-{0x427B, 0xBD},
-{0x427E, 0x01},
-{0x427F, 0x52},
-{0x4283, 0x02},
 {0x4103, 0x01},
 {0x4440, 0x43},
 };
 
 
 static struct msm_camera_i2c_reg_conf vd6869_recommand_cut10_1[]={
-
+{0x3BFE, 0x02},
+{0x3BFF, 0x16},
 {0x4584, 0x00},
 {0x4E01, 0x01},
 {0x4B01, 0x01},
@@ -4283,7 +4138,7 @@ static struct msm_camera_i2c_reg_conf vd6869_recommand_cut10_1[]={
 {0x33BE, 0x03},
 {0x0105, 0x01},
 {0x3BFE, 0x02},
-{0x3BFF, 0x29},
+{0x3BFF, 0x1f},
 {0x5804, 0x42},
 {0x5808, 0x40},
 {0x580C, 0x00},
@@ -4331,6 +4186,7 @@ static struct msm_camera_i2c_reg_conf vd6869_recommand_cut10_1[]={
 {0x4B6A, 0x00},
 {0x4B6B, 0x00},
 {0x0902, 0x03},
+{0x3966, 0x01},
 {0x3967, 0x4e},
 {0x3968, 0xbc},
 {0x396B, 0x00},
@@ -4341,11 +4197,6 @@ static struct msm_camera_i2c_reg_conf vd6869_recommand_cut10_1[]={
 {0x396E, 0x00},
 {0x396F, 0x49},
 {0x3970, 0x20},
-{0x3966, 0x01},
-{0x32FD, 0x02},
-{0x32FC, 0x01},
-{0x3392, 0x01},
-{0x3395, 0x01},
 
 
 {0x0114, 0x03},                   
@@ -4358,17 +4209,26 @@ static struct msm_camera_i2c_reg_conf vd6869_recommand_cut10_1[]={
 {0x0307, 0x30},     
 
 
-{0x0101, 0x03},     
+{0x0101, 0x03},                    
 {0x5848, 0x00},	
 {0x5810, 0x44},	
-{0x5818, 0xc7},	
+{0x5818, 0xc7},					
 
 };
 
 
 static struct msm_camera_i2c_reg_conf vd6869_recommand_cut10_2[]={
+
 {0x4E01, 0x01},	
 {0x4B01, 0x01},	
+
+{0x5800, 0xe0},	
+{0x5840, 0xc0},	
+{0x5844, 0x01},	
+{0x5860, 0x14},	
+{0x58a0, 0x00},	
+
+
 };
 
 
@@ -4414,8 +4274,6 @@ static struct msm_camera_i2c_conf_array vd6869_confs_09E_analog_setting[] = {
 
 static struct msm_sensor_output_info_t vd6869_dimensions_cut10[] = {
 	{
-		.x_addr_start = 0,
-		.y_addr_start = 0,
 		.x_output = 0xA80, 
 		.y_output = 0x5F0, 
 		.line_length_pclk = 0xBB8, 
@@ -4424,28 +4282,18 @@ static struct msm_sensor_output_info_t vd6869_dimensions_cut10[] = {
 		.op_pixel_clk = 230400000,
 		.binning_factor = 1,
 		.is_hdr = 0,
-		.yushan_status_line_enable = 1,
-		.yushan_status_line = 2,
-		.yushan_sensor_status_line = 2,
 	},
 	{
-		.x_addr_start = 0,
-		.y_addr_start = 0,
 		.x_output = 0x540, 
 		.y_output = 0x2f8, 
-		.line_length_pclk = 0x960, 
-		.frame_length_lines = 0x330, 
-		.vt_pixel_clk = 115200000,
-		.op_pixel_clk = 115200000,
+		.line_length_pclk = 0xBB8, 
+		.frame_length_lines = 0x500, 
+		.vt_pixel_clk = 230400000,
+		.op_pixel_clk = 230400000,
 		.binning_factor = 2,
 		.is_hdr = 0,
-		.yushan_status_line_enable = 1,
-		.yushan_status_line = 2,
-		.yushan_sensor_status_line = 2,
 	},
 	{
-		.x_addr_start = 0,
-		.y_addr_start = 0,
 		.x_output = 0xA80, 
 		.y_output = 0x5F0, 
 		.line_length_pclk = 0xBB8, 
@@ -4454,28 +4302,18 @@ static struct msm_sensor_output_info_t vd6869_dimensions_cut10[] = {
 		.op_pixel_clk = 230400000,
 		.binning_factor = 1,
 		.is_hdr = 0,
-		.yushan_status_line_enable = 1,
-		.yushan_status_line = 2,
-		.yushan_sensor_status_line = 2,
 	},
 	{
-		.x_addr_start = 0,
-		.y_addr_start = 0,
 		.x_output = 0x540, 
 		.y_output = 0x2f8, 
-		.line_length_pclk = 0x960, 
-		.frame_length_lines = 0x330, 
-		.vt_pixel_clk = 199200000,
-		.op_pixel_clk = 199200000,
+		.line_length_pclk = 0xBB8, 
+		.frame_length_lines = 0x338, 
+		.vt_pixel_clk = 230400000,
+		.op_pixel_clk = 230400000,
 		.binning_factor = 2,
 		.is_hdr = 0,
-		.yushan_status_line_enable = 1,
-		.yushan_status_line = 2,
-		.yushan_sensor_status_line = 2,
 	},
 	{
-		.x_addr_start = 0x170,
-		.y_addr_start = 0xd8,  
 		.x_output = 0x7a0, 
 		.y_output = 0x440, 
 		.line_length_pclk = 0x2580, 
@@ -4484,13 +4322,8 @@ static struct msm_sensor_output_info_t vd6869_dimensions_cut10[] = {
 		.op_pixel_clk = 230400000,
 		.binning_factor = 1,
 		.is_hdr = 1,
-		.yushan_status_line_enable = 1,
-		.yushan_status_line = 2,
-		.yushan_sensor_status_line = 2,
 	},
 	{
-		.x_addr_start = 0x140,
-		.y_addr_start = 0,
 		.x_output = 0x800, 
 		.y_output = 0x5F0, 
 		.line_length_pclk = 0xBB8, 
@@ -4499,28 +4332,18 @@ static struct msm_sensor_output_info_t vd6869_dimensions_cut10[] = {
 		.op_pixel_clk = 230400000,
 		.binning_factor = 1,
 		.is_hdr = 0,
-		.yushan_status_line_enable = 1,
-		.yushan_status_line = 2,
-		.yushan_sensor_status_line = 2,
 	},
 	{ 
-		.x_addr_start = 0,
-		.y_addr_start = 0,
 		.x_output = 0x540, 
 		.y_output = 0x2f8, 
 		.line_length_pclk = 0xBB8, 
 		.frame_length_lines = 0x190, 
 		.vt_pixel_clk = 230400000,
 		.op_pixel_clk = 230400000,
-		.binning_factor = 1,
+		.binning_factor = 2,
 		.is_hdr = 0,
-		.yushan_status_line_enable = 1,
-		.yushan_status_line = 2,
-		.yushan_sensor_status_line = 2,
 	},
 	{ 
-		.x_addr_start = 0,
-		.y_addr_start = 0,
 		.x_output = 0xA80, 
 		.y_output = 0x5F0, 
 		.line_length_pclk = 0xBB8, 
@@ -4529,13 +4352,8 @@ static struct msm_sensor_output_info_t vd6869_dimensions_cut10[] = {
 		.op_pixel_clk = 230400000,
 		.binning_factor = 1,
 		.is_hdr = 0,
-		.yushan_status_line_enable = 1,
-		.yushan_status_line = 2,
-		.yushan_sensor_status_line = 2,
 	},
 	{
-		.x_addr_start = 0,
-		.y_addr_start = 0,
 		.x_output = 0xA80, 
 		.y_output = 0x5F0, 
 		.line_length_pclk = 0x1770, 
@@ -4544,9 +4362,6 @@ static struct msm_sensor_output_info_t vd6869_dimensions_cut10[] = {
 		.op_pixel_clk = 230400000,
 		.binning_factor = 1,
 		.is_hdr = 0,
-		.yushan_status_line_enable = 1,
-		.yushan_status_line = 2,
-		.yushan_sensor_status_line = 2,
 	},
 };
 
@@ -4608,7 +4423,7 @@ static struct msm_sensor_id_info_t vd6869_id_info = {
 static struct msm_sensor_exp_gain_info_t vd6869_exp_gain_info = {
 	.coarse_int_time_addr = 0x202,
 	.global_gain_addr = 0x204,
-	.vert_offset = 25,
+	.vert_offset = 10,
 	.min_vert = 4,  
 	.sensor_max_linecount = 65525,  
 };
@@ -4622,24 +4437,6 @@ static struct vd6869_hdr_exp_info_t vd6869_hdr_gain_info = {
 	.vert_offset = 4,
 	.sensor_max_linecount = 65531,  
 };
-
-
-static int vd6869_i2c_read(struct msm_camera_i2c_client *client,
-	uint16_t addr, uint16_t *data,
-	enum msm_camera_i2c_data_type data_type)
-{
-	int i = 0,rc = 0;
-	for(i = 0 ;i < OTP_WAIT_TIMEOUT; i++) {
-		rc = msm_camera_i2c_read(client, addr,data,data_type);
-		if(rc < 0)
-			pr_err("%s write otp init table error.... retry", __func__);
-		else
-			return rc;
-		mdelay(1);
-	}
-	return rc;
-}
-
 
 int32_t vd6869_set_dig_gain(struct msm_sensor_ctrl_t *s_ctrl, uint16_t dig_gain)
 {
@@ -4785,15 +4582,8 @@ static int vd6869_sensor_open_init(const struct msm_camera_sensor_info *data)
 	if (data->sensor_platform_info)
 		vd6869_s_ctrl.mirror_flip = data->sensor_platform_info->mirror_flip;
 
-	if(vd6869_s_ctrl.driver_ic == 0x11){
-		if(data->sensor_platform_info->sensor_mount_angle == ANGLE_90){
-			vd6869_s_ctrl.mirror_flip = CAMERA_SENSOR_NONE;
-			data->sensor_platform_info->mirror_flip = CAMERA_SENSOR_NONE;
-		}
-	}
-	pr_info("vd6869_sensor_open_init,vd6869_s_ctrl.mirror_flip=%d,data->sensor_platform_info->mirror_flip=%d", vd6869_s_ctrl.mirror_flip, data->sensor_platform_info->mirror_flip);
-	pr_info("vd6869_sensor_open_init,sensor_mount_angle=%d", data->sensor_platform_info->sensor_mount_angle);
-	pr_info("vd6869_sensor_open_init,vd6869_s_ctrl.driver_ic=%d", vd6869_s_ctrl.driver_ic);
+    pr_info("vd6869_sensor_open_init,vd6869_s_ctrl.mirror_flip=%d",vd6869_s_ctrl.mirror_flip);
+
 	return rc;
 }
 
@@ -4937,7 +4727,6 @@ static int vd6869_shut_down_otp(struct msm_sensor_ctrl_t *s_ctrl,uint16_t addr, 
 			pr_info("%s shut down OTP success 0x%x:0x%x",__func__,addr,data);
 			return rc;
 		}
-		mdelay(1);
 	}
 	pr_err("%s shut down time out 0x%x",__func__,addr);
 	return rc;
@@ -4961,7 +4750,6 @@ static int vd6869_cut10_init_otp(struct msm_sensor_ctrl_t *s_ctrl){
 			pr_info("%s OTP table init done",__func__);
 			break;
 		}
-		mdelay(1);
 	}
 
 	
@@ -4992,243 +4780,8 @@ static int vd6869_cut10_init_otp(struct msm_sensor_ctrl_t *s_ctrl){
 }
 
 
-static int vd6869_cut10_init_otp_NO_ECC(struct msm_sensor_ctrl_t *s_ctrl){
-	int i,rc = 0;
-	uint16_t read_data = 0;
-
-	
-	for(i = 0 ;i < OTP_WAIT_TIMEOUT; i++) {
-		rc = msm_camera_i2c_write_tbl(
-			s_ctrl->sensor_i2c_client
-			, otp_settings_cut10_NO_ECC,
-			ARRAY_SIZE(otp_settings_cut10_NO_ECC),
-			MSM_CAMERA_I2C_BYTE_DATA);
-
-		if(rc < 0)
-			pr_err("%s write otp init table error.... retry", __func__);
-		else{
-			pr_info("%s OTP table init done",__func__);
-			break;
-		}
-		mdelay(1);
-	}
-
-	
-	for(i = 0 ;i < OTP_WAIT_TIMEOUT; i++){
-		
-		rc = msm_camera_i2c_read(
-			s_ctrl->sensor_i2c_client,
-			(0x3302),&read_data,
-			MSM_CAMERA_I2C_BYTE_DATA);
-
-		if(rc < 0){
-			pr_err("%s read OTP status error",__func__);
-		} else if(read_data == 0x00){
-			rc = vd6869_shut_down_otp(s_ctrl,0x4584,0x00);
-			if(rc < 0)
-				return rc;
-			rc = vd6869_shut_down_otp(s_ctrl,0x44c0,0x00);
-			if(rc < 0)
-				return rc;
-			rc = vd6869_shut_down_otp(s_ctrl,0x4500,0x00);
-			if(rc < 0)
-				return rc;
-			break;
-		}
-		mdelay(1);
-	}
-	return rc;
-}
-
-
-
-
-
-#define VD6869_LITEON_OTP_SIZE 0x12
-const static short otp_addr[3][VD6869_LITEON_OTP_SIZE] = {
-    
-    {0x3C8,0x3C9,0x3CA,0x3CB,0x3CC,0x3A0,0x3A1,0x3A2,0x3CD,0x3CE,0x3C0,0x3C1,0x3C2,0x3C3,0x3C4,0x3C5,0x3C6,0x3C7}, 
-    {0x3D8,0x3D9,0x3DA,0x3DB,0x3DC,0x380,0x381,0x382,0x3DD,0x3DE,0x3D0,0x3D1,0x3D2,0x3D3,0x3D4,0x3D5,0x3D6,0x3D7}, 
-    {0x3B8,0x3B9,0x3BA,0x3BB,0x3BC,0x388,0x389,0x38A,0x3BD,0x3BE,0x3B0,0x3B1,0x3B2,0x3B3,0x3B4,0x3B5,0x3B6,0x3B7}, 
-};
-
-
-#if defined(CONFIG_ACT_OIS_BINDER)
-extern void HtcActOisBinder_set_OIS_OTP(uint8_t *otp_data, uint8_t otp_size);
-
-#define VD6869_LITEON_OIS_OTP_SIZE 34
-const static short ois_addr[3][VD6869_LITEON_OIS_OTP_SIZE] = {
-    
-    {0x090,0x091,0x092,0x093,0x094,0x095,0x096,0x097,0x098,0x099,0x09A,0x09B,0x09C,0x09D,0x09E,0x09F,0x0A0,0x0A1,0x0A2,0x0A3,0x0A4,0x0A5,0x0A6,0x0A7,0x0A8,0x0A9,0x0AA,0x0AB,0x0AC,0x0AD,0x0AE,0x0AF,0x0F0,0x0F4}, 
-    {0x0B0,0x0B1,0x0B2,0x0B3,0x0B4,0x0B5,0x0B6,0x0B7,0x0B8,0x0B9,0x0BA,0x0BB,0x0BC,0x0BD,0x0BE,0x0BF,0x0C0,0x0C1,0x0C2,0x0C3,0x0C4,0x0C5,0x0C6,0x0C7,0x0C8,0x0C9,0x0CA,0x0CB,0x0CC,0x0CD,0x0CE,0x0CF,0x0F8,0x0F9}, 
-    {0x0D0,0x0D1,0x0D2,0x0D3,0x0D4,0x0D5,0x0D6,0x0D7,0x0D8,0x0D9,0x0DA,0x0DB,0x0DC,0x0DD,0x0DE,0x0DF,0x0E0,0x0E1,0x0E2,0x0E3,0x0E4,0x0E5,0x0E6,0x0E7,0x0E8,0x0E9,0x0EA,0x0EB,0x0EC,0x0ED,0x0EE,0x0EF,0x0FC,0x0FD}, 
-};
-#endif
-
-static void vd6869_dump_otp_to_file(const short* add, const uint8_t* data, size_t count)
-{
-    uint8_t *path= "/data/vd6869_otp.txt";
-    struct file* f = msm_fopen (path, O_CREAT|O_RDWR|O_TRUNC, 0666);
-    char buf[512];
-    int i=0;
-    int len=0;
-    pr_info ("%s\n",__func__);
-
-    if (f) {
-        for (i=0; i<count; ++i) {
-            len += sprintf (buf+len,"0x%x 0x%x\n",add[i],data[i]);
-        }
-
-        msm_fwrite (f,0,buf,len);
-        msm_fclose (f);
-    } else {
-        pr_err ("%s: fail to open file\n", __func__);
-    }
-}
-
-int vd6869_read_fuseid_liteon(struct sensor_cfg_data *cdata,
-	struct msm_sensor_ctrl_t *s_ctrl, bool first)
-{
-	int32_t i,j;
-	int32_t rc = 0;
-	const int32_t offset = 0x33fa;
-	static int32_t valid_layer=-1;
-	uint16_t ews_data[4] = {0};
-    static uint8_t otp[VD6869_LITEON_OTP_SIZE];
-#if defined(CONFIG_ACT_OIS_BINDER)
-	int32_t ois_valid_layer=-1;
-	static uint8_t ois_otp[VD6869_LITEON_OIS_OTP_SIZE];
-#endif
-	uint16_t read_data = 0;
-
-	if (first) {
-		if (s_ctrl->sensordata->sensor_cut == 1) {
-			
-			for (i=0; i<4; i++) {
-				rc = msm_camera_i2c_read(s_ctrl->sensor_i2c_client, (offset + 0x3F4 + i), &ews_data[i], MSM_CAMERA_I2C_BYTE_DATA);
-				if (rc < 0){
-					pr_err("%s: msm_camera_i2c_read 0x%x failed\n", __func__, (offset + 0x3F4 + i));
-					return rc;
-				}
-				pr_info("%s: read OTP 0x%x = 0x%x\n", __func__, (0x3F4 + i), ews_data[i]);
-			}
-
-			if (ews_data[0]==0 && ews_data[1]==0 && ews_data[2]==0 && ews_data[3]==1) {
-				pr_info("%s: Apply OTP ECC enable", __func__);
-			} else {
-				
-				vd6869_cut10_init_otp_NO_ECC(s_ctrl);
-				pr_info("%s: Apply OTP ECC disable", __func__);
-			}
-		}
-
-        
-        for (j=2; j>=0; --j) {
-            for (i=0; i<VD6869_LITEON_OTP_SIZE; ++i) {
-                rc = msm_camera_i2c_read(s_ctrl->sensor_i2c_client, otp_addr[j][i]+offset, &read_data, MSM_CAMERA_I2C_BYTE_DATA);
-                if (rc < 0){
-                    pr_err("%s: msm_camera_i2c_read 0x%x failed\n", __func__, otp_addr[j][i]);
-                    return rc;
-                }
-                pr_info("%s: OTP addr 0x%x = 0x%x\n", __func__,  otp_addr[j][i], read_data);
-
-                otp[i]= read_data;
-
-                if (read_data)
-                    valid_layer = j;
-            }
-            if (valid_layer!=-1)
-                break;
-        }
-        pr_info("%s: OTP valid layer = %d\n", __func__,  valid_layer);
-
-#if defined(CONFIG_ACT_OIS_BINDER)
-        
-        for (j=2; j>=0; --j) {
-            for (i=0; i<VD6869_LITEON_OIS_OTP_SIZE; ++i) {
-                rc = msm_camera_i2c_read(s_ctrl->sensor_i2c_client, ois_addr[j][i]+offset, &read_data, MSM_CAMERA_I2C_BYTE_DATA);
-                if (rc < 0){
-                    pr_err("%s: msm_camera_i2c_read 0x%x failed\n", __func__, ois_addr[j][i]);
-                    return rc;
-                }
-                pr_info("%s: OTP ois_addr 0x%x = 0x%x\n", __func__,  ois_addr[j][i], read_data);
-
-                ois_otp[i]= read_data;
-
-                if (read_data)
-                    ois_valid_layer = j;
-            }
-            if (ois_valid_layer!=-1)
-                break;
-        }
-        pr_info("%s: OTP OIS valid layer = %d\n", __func__,  ois_valid_layer);
-
-
-	if (ois_valid_layer!=-1) {
-		for(i=0; i<VD6869_LITEON_OIS_OTP_SIZE;i ++)
-			pr_info("read out OTP OIS data = 0x%x\n", ois_otp[i]);
-
-		HtcActOisBinder_set_OIS_OTP(ois_otp, VD6869_LITEON_OIS_OTP_SIZE);
-	}
-#endif
-
-
-    }
-    
-    vd6869_ver = otp[2]; 
-    cdata->sensor_ver = otp[2];
-
-    
-    if(vd6869_ver == 0x0A){
-        vd6869_apply_analog_setting(s_ctrl);
-    }
-    if (board_mfg_mode()) {
-        vd6869_dump_otp_to_file (otp_addr[valid_layer], otp, VD6869_LITEON_OTP_SIZE);
-    }
-    
-    cdata->cfg.fuse.fuse_id_word1 = 0;
-    cdata->cfg.fuse.fuse_id_word2 = otp[5];
-    cdata->cfg.fuse.fuse_id_word3 = otp[6];
-    cdata->cfg.fuse.fuse_id_word4 = otp[7];
-
-    
-    cdata->af_value.VCM_BIAS = otp[8];
-    cdata->af_value.VCM_OFFSET = otp[9];
-    cdata->af_value.VCM_BOTTOM_MECH_MSB = otp[0xa];
-    cdata->af_value.VCM_BOTTOM_MECH_LSB = otp[0xb];
-    cdata->af_value.AF_INF_MSB = otp[0xc];
-    cdata->af_value.AF_INF_LSB = otp[0xd];
-    cdata->af_value.AF_MACRO_MSB = otp[0xe];
-    cdata->af_value.AF_MACRO_LSB = otp[0xf];
-    cdata->af_value.VCM_TOP_MECH_MSB = otp[0x10];
-    cdata->af_value.VCM_TOP_MECH_LSB = otp[0x11];
-    cdata->af_value.VCM_VENDOR_ID_VERSION = otp[4];
-    pr_info("%s: OTP Module vendor = 0x%x\n",               __func__,  otp[0]);
-    pr_info("%s: OTP LENS = 0x%x\n",                        __func__,  otp[1]);
-    pr_info("%s: OTP Sensor Version = 0x%x\n",              __func__,  otp[2]);
-    pr_info("%s: OTP Driver IC Vendor & Version = 0x%x\n",  __func__,  otp[3]);
-    pr_info("%s: OTP Actuator vender ID & Version = 0x%x\n",__func__,  otp[4]);
-
-    pr_info("%s: OTP fuse 0 = 0x%x\n", __func__,  cdata->cfg.fuse.fuse_id_word1);
-    pr_info("%s: OTP fuse 1 = 0x%x\n", __func__,  cdata->cfg.fuse.fuse_id_word2);
-    pr_info("%s: OTP fuse 2 = 0x%x\n", __func__,  cdata->cfg.fuse.fuse_id_word3);
-    pr_info("%s: OTP fuse 3 = 0x%x\n", __func__,  cdata->cfg.fuse.fuse_id_word4);
-
-    pr_info("%s: OTP BAIS Calibration data = 0x%x\n",           __func__,  cdata->af_value.VCM_BIAS);
-    pr_info("%s: OTP OFFSET Calibration data = 0x%x\n",         __func__,  cdata->af_value.VCM_OFFSET);
-    pr_info("%s: OTP VCM bottom mech. Limit (MSByte) = 0x%x\n", __func__,  cdata->af_value.VCM_BOTTOM_MECH_MSB);
-    pr_info("%s: OTP VCM bottom mech. Limit (LSByte) = 0x%x\n", __func__,  cdata->af_value.VCM_BOTTOM_MECH_LSB);
-    pr_info("%s: OTP Infinity position code (MSByte) = 0x%x\n", __func__,  cdata->af_value.AF_INF_MSB);
-    pr_info("%s: OTP Infinity position code (LSByte) = 0x%x\n", __func__,  cdata->af_value.AF_INF_LSB);
-    pr_info("%s: OTP Macro position code (MSByte) = 0x%x\n",    __func__,  cdata->af_value.AF_MACRO_MSB);
-    pr_info("%s: OTP Macro position code (LSByte) = 0x%x\n",    __func__,  cdata->af_value.AF_MACRO_LSB);
-    pr_info("%s: OTP VCM top mech. Limit (MSByte) = 0x%x\n",    __func__,  cdata->af_value.VCM_TOP_MECH_MSB);
-    pr_info("%s: OTP VCM top mech. Limit (LSByte) = 0x%x\n",    __func__,  cdata->af_value.VCM_TOP_MECH_LSB);
-
-    return 0;
-}
-int vd6869_read_fuseid_sharp(struct sensor_cfg_data *cdata,
-	struct msm_sensor_ctrl_t *s_ctrl,bool first)
+static int vd6869_read_fuseid(struct sensor_cfg_data *cdata,
+	struct msm_sensor_ctrl_t *s_ctrl)
 {
 	int32_t rc = 0;
 	int i,j;
@@ -5237,87 +4790,51 @@ int vd6869_read_fuseid_sharp(struct sensor_cfg_data *cdata,
 	static uint8_t OTP[OTP_SIZE] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 	static uint8_t OTP_FUSE[OTP_FUSE_SIZE] = {0,0,0,0,0,0,0,0,0,0,0,0};
 	static uint8_t OTP_DATE[2] ={0,0};
-#if defined(CONFIG_ACT_OIS_BINDER)
-	const int32_t offset = 0x33fa;
-	int32_t ois_valid_layer=-1;
-	static uint8_t ois_otp[VD6869_LITEON_OIS_OTP_SIZE];
-#endif
 
+	static bool first= true;
 	pr_info("%s called \n", __func__);
 
 	if (first) {
 
+		if(s_ctrl->sensordata->sensor_cut == 1){
+			rc = vd6869_cut10_init_otp(s_ctrl);
+			if (rc < 0)
+				return rc;
+		}
+
 		
 		for (i = 0; i < OTP_SIZE; i++) {
-			rc = vd6869_i2c_read(
-					s_ctrl->sensor_i2c_client,
-					(0x37ba + i), &read_data,
-					MSM_CAMERA_I2C_BYTE_DATA);
+			rc = msm_camera_i2c_read(s_ctrl->sensor_i2c_client, (0x37ba + i), &read_data, MSM_CAMERA_I2C_BYTE_DATA);
 			if (rc < 0){
 				pr_err("%s: msm_camera_i2c_read 0x%x failed\n", __func__, (0x37ba + i));
 				return rc;
 			}
 			OTP[i] = (uint8_t)(read_data&0x00FF);
 			read_data = 0;
+			pr_info("index=0x%x, OTP value= 0x%x\n", i, OTP[i]);
 		}
 
 		for (j = 0; j < OTP_FUSE_SIZE; j++) {
-			rc = vd6869_i2c_read(
-					s_ctrl->sensor_i2c_client,
-					(0x37ee + j), &read_data,
-					MSM_CAMERA_I2C_BYTE_DATA);
+			rc = msm_camera_i2c_read(s_ctrl->sensor_i2c_client, (0x37ee + j), &read_data, MSM_CAMERA_I2C_BYTE_DATA);
 			if (rc < 0){
 				pr_err("%s: msm_camera_i2c_read 0x%x failed\n", __func__, (0x37ee + j));
 				return rc;
 			}
 			OTP_FUSE[j] = (uint8_t)(read_data&0x00FF);
 			read_data = 0;
+			pr_info("index=0x%x, OTP_FUSE value= 0x%x\n", j, OTP_FUSE[j]);
 		}
 
 		for (otp_date= 0; otp_date < 2; otp_date++) {
-			rc = vd6869_i2c_read(
-					s_ctrl->sensor_i2c_client,
-					(0x379A + otp_date), &read_data,
-					MSM_CAMERA_I2C_BYTE_DATA);
+			rc = msm_camera_i2c_read(s_ctrl->sensor_i2c_client, (0x379A + otp_date), &read_data, MSM_CAMERA_I2C_BYTE_DATA);
 			if (rc < 0){
 				pr_err("%s: msm_camera_i2c_read 0x%x failed\n", __func__, (0x379A + otp_date));
 				return rc;
 			}
 			OTP_DATE[otp_date] = (uint8_t)(read_data&0x00FF);
 			read_data = 0;
+			pr_info("index=0x%x, OTP_DATE value= 0x%x\n", otp_date, OTP_DATE[otp_date]);
 		}
-
-
-#if defined(CONFIG_ACT_OIS_BINDER)
-        
-        for (j=2; j>=0; --j) {
-            for (i=0; i<VD6869_LITEON_OIS_OTP_SIZE; ++i) {
-                rc = msm_camera_i2c_read(s_ctrl->sensor_i2c_client, ois_addr[j][i]+offset, &read_data, MSM_CAMERA_I2C_BYTE_DATA);
-                if (rc < 0){
-                    pr_err("%s: msm_camera_i2c_read 0x%x failed\n", __func__, ois_addr[j][i]);
-                    return rc;
-                }
-                pr_info("%s: OTP ois_addr 0x%x = 0x%x\n", __func__,  ois_addr[j][i], read_data);
-
-                ois_otp[i]= read_data;
-
-                if (read_data)
-                    ois_valid_layer = j;
-            }
-            if (ois_valid_layer!=-1)
-                break;
-        }
-        pr_info("%s: OTP OIS valid layer = %d\n", __func__,  ois_valid_layer);
-
-
-	if (ois_valid_layer!=-1) {
-		for(i=0; i<VD6869_LITEON_OIS_OTP_SIZE;i ++)
-			pr_info("read out OTP OIS data = 0x%x\n", ois_otp[i]);
-
-		HtcActOisBinder_set_OIS_OTP(ois_otp, VD6869_LITEON_OIS_OTP_SIZE);
-	}
-#endif
-
 
 		vd6869_year_mon = OTP_DATE[0];
 		vd6869_date = OTP_DATE[1];
@@ -5372,14 +4889,13 @@ int vd6869_read_fuseid_sharp(struct sensor_cfg_data *cdata,
 		cdata->af_value.AF_INF_LSB = OTP[3];
 		cdata->af_value.AF_MACRO_MSB = OTP[4];
 		cdata->af_value.AF_MACRO_LSB = OTP[5];
-		cdata->af_value.ACT_ID = OTP[12];
 		pr_info("VCM_START_MSB =0x%x\n", cdata->af_value.VCM_START_MSB);
 		pr_info("VCM_START_LSB =0x%x\n", cdata->af_value.VCM_START_LSB);
 		pr_info("AF_INF_MSB =0x%x\n", cdata->af_value.AF_INF_MSB);
 		pr_info("AF_INF_LSB =0x%x\n", cdata->af_value.AF_INF_LSB);
 		pr_info("AF_MACRO_MSB =0x%x\n", cdata->af_value.AF_MACRO_MSB);
 		pr_info("AF_MACRO_LSB =0x%x\n", cdata->af_value.AF_MACRO_LSB);
-		pr_info("ACT_ID =0x%x\n", cdata->af_value.ACT_ID);
+		first = false;
 	} else {
 		cdata->af_value.VCM_START_MSB = OTP[0];
 		cdata->af_value.VCM_START_LSB = OTP[1];
@@ -5387,7 +4903,6 @@ int vd6869_read_fuseid_sharp(struct sensor_cfg_data *cdata,
 		cdata->af_value.AF_INF_LSB = OTP[3];
 		cdata->af_value.AF_MACRO_MSB = OTP[4];
 		cdata->af_value.AF_MACRO_LSB = OTP[5];
-		cdata->af_value.ACT_ID = OTP[12];
 
 		cdata->sensor_ver = OTP[10];
 
@@ -5410,194 +4925,6 @@ int vd6869_read_fuseid_sharp(struct sensor_cfg_data *cdata,
 	}
 	return 0;
 
-}
-
-
-
-
-int32_t vd6869_read_otp_valid_layer(struct msm_sensor_ctrl_t *s_ctrl, int8_t *valid_layer, bool first)
-{
-    int32_t rc = 0;
-    const int32_t offset = 0x33fa;
-    uint16_t read_data = 0;
-    int j=2,i=0;
-    static int8_t layer=-1;
-    if (first) {
-        for (j=2; j>=0; --j) {
-            for (i=0; i<VD6869_LITEON_OTP_SIZE; ++i) {
-                rc = msm_camera_i2c_read(s_ctrl->sensor_i2c_client, otp_addr[j][i]+offset, &read_data, MSM_CAMERA_I2C_BYTE_DATA);
-                if (rc < 0){
-                    pr_err("%s: msm_camera_i2c_read 0x%x failed\n", __func__, otp_addr[j][i]);
-                    return rc;
-                }
-                pr_info("%s: OTP addr 0x%x = 0x%x\n", __func__,  otp_addr[j][i], read_data);
-
-                if (read_data)
-                    layer = j;
-            }
-            if (layer!=-1)
-                break;
-        }
-    }
-
-    *valid_layer = layer;
-    pr_info("%s: OTP valid layer = %d\n", __func__,  *valid_layer);
-    return rc;
-}
-
-
-int vd6869_read_module_vendor(struct msm_sensor_ctrl_t *s_ctrl, uint8_t valid_layer, uint8_t* module_vendor, uint8_t* driver_ic,bool first)
-{
-	int32_t rc = 0;
-	uint16_t read_data = 0;
-	static uint8_t moduler=0,driver=0;
-	const int32_t offset = 0x33fa;
-	int16_t retry_count = 0;
-	int16_t retry_max = 10;
-
-	if (first) {
-
-		do {
-
-			if (s_ctrl->sensordata->sensor_cut == 1 && retry_count > 0) {
-				rc = vd6869_cut10_init_otp(s_ctrl);
-				if (rc<0)
-					return rc;
-			}
-
-			rc = msm_camera_i2c_read(s_ctrl->sensor_i2c_client, otp_addr[valid_layer][0]+offset, &read_data, MSM_CAMERA_I2C_BYTE_DATA);
-			if (rc < 0) {
-				pr_err("%s: msm_camera_i2c_read 0x%x failed\n", __func__, otp_addr[valid_layer][0]+offset);
-				return rc;
-			}
-			moduler = (uint8_t)(read_data&0x00FF);
-
-			rc = msm_camera_i2c_read(s_ctrl->sensor_i2c_client, otp_addr[valid_layer][3]+offset, &read_data, MSM_CAMERA_I2C_BYTE_DATA);
-			if (rc < 0) {
-				pr_err("%s: msm_camera_i2c_read 0x%x failed\n", __func__, otp_addr[valid_layer][3]+offset);
-				return rc;
-			}
-			driver = (uint8_t)(read_data&0x00FF);
-
-			if (driver == 0 || moduler == 0) {
-				pr_err("OTP read error : driver=0x%x, moduler=0x%x  Apply retry mechanism  retry_count=%d\n", driver, moduler, retry_count);
-				retry_count++;
-				msleep(10);
-			}
-
-		} while ((driver == 0 || moduler == 0) && (retry_count <= retry_max));
-
-	}
-
-	*module_vendor = moduler;
-	*driver_ic = driver;
-	vd6869_s_ctrl.driver_ic = driver;
-	pr_info("module_vendor = 0x%x\n", *module_vendor);
-	pr_info("driver_ic = 0x%x\n", *driver_ic);
-	return rc;
-}
-
-
-static int vd6869_lookup_actuator(struct msm_sensor_ctrl_t *s_ctrl, char *actuator_name)
-{
-	int i;
-	struct msm_camera_sensor_info *sdata;
-	struct msm_actuator_info *actuator_info;
-	int actuator_index = -1;
-
-	if ((s_ctrl == NULL) || (s_ctrl->sensordata == NULL))
-		return -EFAULT;
-	if (actuator_name == NULL)
-		return -EFAULT;
-
-	sdata = (struct msm_camera_sensor_info *) s_ctrl->sensordata;
-
-	for(i=0; i<sdata->num_actuator_info_table; i++) {
-		actuator_info = &sdata->actuator_info_table[i][0];
-		pr_info("index=%d   actuator_info->board_info->type=%s\n", i, actuator_info->board_info->type);
-		if(!strncmp(actuator_info->board_info->type, actuator_name, strlen(actuator_name))) {
-			actuator_index = i;
-			break;
-		}
-	}
-
-	return actuator_index;
-}
-
-int vd6869_read_fuseid(struct sensor_cfg_data *cdata,
-	struct msm_sensor_ctrl_t *s_ctrl)
-{
-	int rc;
-	uint8_t module_vendor;
-	uint8_t driver_ic;
-	static bool first=true;
-	struct msm_camera_sensor_info *sdata = (struct msm_camera_sensor_info *) s_ctrl->sensordata;
-	int actuator_index = -1;
-	int8_t valid_layer = -1;
-
-	if (first) {
-		if (s_ctrl->sensordata->sensor_cut == 1) {
-			rc = vd6869_cut10_init_otp(s_ctrl);
-			if (rc<0)
-				return rc;
-		}
-
-		rc = vd6869_read_otp_valid_layer (s_ctrl,&valid_layer,first);
-		if (rc<0) {
-			pr_err("%s: failed %d\n", __func__, rc);
-			first = false;
-			return rc;
-		}
-	}
-
-	if (valid_layer < 0)
-		valid_layer = 0;
-
-	rc = vd6869_read_module_vendor (s_ctrl, valid_layer, &module_vendor, &driver_ic, first);
-	if (rc<0) {
-		pr_err("%s: failed %d\n", __func__, rc);
-        first = false;
-		return rc;
-	}
-	cdata->af_value.VCM_VENDOR = module_vendor;
-
-	if (sdata->num_actuator_info_table > 1)
-	{
-		pr_info("%s: driver_ic=%d\n", __func__, driver_ic);
-
-		if (driver_ic == 0x21) { 
-			actuator_index = vd6869_lookup_actuator(s_ctrl, "ti201_act");
-		} else if (driver_ic == 0x11) { 
-			actuator_index = vd6869_lookup_actuator(s_ctrl, "lc898212_act");
-		} else { 
-			actuator_index = vd6869_lookup_actuator(s_ctrl, "rumbas_act");
-		}
-
-		if (actuator_index >= 0 && actuator_index < sdata->num_actuator_info_table)
-			sdata->actuator_info = &sdata->actuator_info_table[actuator_index][0];
-		else {
-			pr_err("%s: actuator lookup fail\n", __func__);
-			return -1;
-		}
-
-		pr_info("%s: sdata->actuator_info->board_info->type=%s", __func__, sdata->actuator_info->board_info->type);
-		pr_info("%s: sdata->actuator_info->board_info->addr=0x%x", __func__, sdata->actuator_info->board_info->addr);
-	}
-
-	switch (module_vendor) {
-		case 0x1:
-			rc = vd6869_read_fuseid_sharp (cdata,s_ctrl,first);
-			break;
-		case 0x2:
-			rc = vd6869_read_fuseid_liteon (cdata,s_ctrl,first);
-			break;
-		default:
-			pr_err("%s unknown module vendor = 0x%x\n",__func__, module_vendor);
-			break;
-	}
-
-	first = false;
-	return rc;
 }
 
 int32_t vd6869_power_up(struct msm_sensor_ctrl_t *s_ctrl)
@@ -6024,7 +5351,7 @@ void vd6869_start_stream_hdr(struct msm_sensor_ctrl_t *s_ctrl){
 }
 
 void vd6869_start_stream_non_hdr(struct msm_sensor_ctrl_t *s_ctrl){
-	
+
 	pr_info("vd6869_start_stream,non-HDR");
 
 	msm_camera_i2c_write(s_ctrl->sensor_i2c_client,
@@ -6113,101 +5440,6 @@ void vd6869_stop_stream(struct msm_sensor_ctrl_t *s_ctrl)
 
 }
 
-int vd6869_write_output_settings_specific(struct msm_sensor_ctrl_t *s_ctrl,
-	uint16_t res)
-{
-	int rc = 0;
-	uint16_t value = 0;
-
-	
-	if (vd6869_s_ctrl.mirror_flip == CAMERA_SENSOR_MIRROR_FLIP)
-		value = VD6869_READ_MIRROR_FLIP;
-	else if (vd6869_s_ctrl.mirror_flip == CAMERA_SENSOR_MIRROR)
-		value = VD6869_READ_MIRROR;
-	else if (vd6869_s_ctrl.mirror_flip == CAMERA_SENSOR_FLIP)
-		value = VD6869_READ_FLIP;
-	else
-		value = VD6869_READ_NORMAL_MODE;
-
-	rc = msm_camera_i2c_write(vd6869_s_ctrl.sensor_i2c_client,
-		VD6869_REG_READ_MODE, value, MSM_CAMERA_I2C_BYTE_DATA);
-	pr_info("chuck-value=%d\n", value);
-	if (rc < 0) {
-		pr_err("%s set mirror_flip failed\n", __func__);
-		return rc;
-	}
-
-	return rc;
-}
-void vd6869_yushanII_set_output_format(struct msm_sensor_ctrl_t *sensor,int res, Ilp0100_structFrameFormat *output_format)
-{
-	pr_info("[CAM]%s\n",__func__);
-	output_format->ActiveLineLengthPixels =
-		sensor->msm_sensor_reg->output_settings[res].x_output;
-	output_format->ActiveFrameLengthLines =
-		sensor->msm_sensor_reg->output_settings[res].y_output;
-	output_format->LineLengthPixels =
-		sensor->msm_sensor_reg->output_settings[res].line_length_pclk;
-	
-	if(sensor->sensordata->sensor_cut == 0 &&
-		sensor->sensordata->hdr_mode == 0)
-		output_format->FrameLengthLines = 
-			sensor->msm_sensor_reg->output_settings[res].frame_length_lines*2;
-	else
-		output_format->FrameLengthLines =
-		sensor->msm_sensor_reg->output_settings[res].frame_length_lines;
-
-	
-	
-	output_format->StatusLinesOutputted = sensor->msm_sensor_reg->output_settings[res].yushan_status_line_enable;
-	output_format->StatusNbLines = sensor->msm_sensor_reg->output_settings[res].yushan_status_line;
-	output_format->ImageOrientation = sensor->sensordata->sensor_platform_info->mirror_flip;
-	output_format->StatusLineLengthPixels =
-		sensor->msm_sensor_reg->output_settings[res].x_output;
-	
-
-	output_format->MinInterframe =
-		(output_format->FrameLengthLines -
-		output_format->ActiveFrameLengthLines -
-		output_format->StatusNbLines);
-	output_format->AutomaticFrameParamsUpdate = TRUE;
-
-	if(sensor->sensordata->hdr_mode)
-		output_format->HDRMode = STAGGERED;
-	else
-		output_format->HDRMode = HDR_NONE;
-
-	output_format->Hoffset =
-			sensor->msm_sensor_reg->output_settings[res].x_addr_start;
-	output_format->Voffset =
-			sensor->msm_sensor_reg->output_settings[res].y_addr_start;
-
-	
-	output_format->HScaling = 1;
-	output_format->VScaling = 1;
-
-	if(sensor->msm_sensor_reg->output_settings[res].binning_factor == 2){
-		output_format->Binning = 0x22;
-	}else{
-		output_format->Binning = 0x11;
-	}
-}
-
-void vd6869_yushanII_set_parm(struct msm_sensor_ctrl_t *sensor, int res,Ilp0100_structSensorParams *YushanII_sensor)
-{
-	
-	YushanII_sensor->StatusNbLines = sensor->msm_sensor_reg->output_settings[res].yushan_sensor_status_line;
-    
-	YushanII_sensor->FullActiveLines =
-		sensor->msm_sensor_reg->output_settings[MSM_SENSOR_RES_FULL].y_output;
-	
-	YushanII_sensor->FullActivePixels =
-		sensor->msm_sensor_reg->output_settings[MSM_SENSOR_RES_FULL].x_output;
-	
-	YushanII_sensor->MinLineLength =
-		sensor->msm_sensor_reg->output_settings[MSM_SENSOR_RES_FULL].line_length_pclk;
-}
-
 static struct msm_sensor_fn_t vd6869_func_tbl = {
 	.sensor_start_stream = vd6869_start_stream,
 	.sensor_stop_stream = vd6869_stop_stream,	
@@ -6230,9 +5462,6 @@ static struct msm_sensor_fn_t vd6869_func_tbl = {
 	.sensor_power_down = vd6869_power_down,
 	.sensor_i2c_read_fuseid = vd6869_read_fuseid,
 	.sensor_i2c_read_vcm_driver_ic = vd6869_read_VCM_driver_IC_info,
-	.sensor_write_output_settings_specific = vd6869_write_output_settings_specific,
-	.sensor_yushanII_set_output_format = vd6869_yushanII_set_output_format,
-    .sensor_yushanII_set_parm = vd6869_yushanII_set_parm,
 };
 
 static struct msm_sensor_reg_t vd6869_regs = {
