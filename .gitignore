@@ -51,7 +51,7 @@ modules.builtin
 # Debian directory (make deb-pkg)
 #
 /debian/
-/drivers/gpu_msm/
+
 /arch/arm/boot/
 #
 # git files that we don't want to ignore even it they are dot-files
