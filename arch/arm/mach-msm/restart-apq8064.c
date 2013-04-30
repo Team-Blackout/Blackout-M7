@@ -338,19 +338,6 @@ void msm_restart(char mode, const char *cmd)
 
 	__raw_writel(0, msm_tmr0_base + WDT0_EN);
 
-	if (cmd && !strncmp(cmd, "force-dog-bark", 14)) {
-		pr_info("%s: Force dog bark!\r\n", __func__);
-
-		__raw_writel(1, msm_tmr0_base + WDT0_RST);
-		__raw_writel(0x31F3, msm_tmr0_base + WDT0_BARK_TIME);
-		__raw_writel(5*0x31F3, msm_tmr0_base + WDT0_BITE_TIME);
-		__raw_writel(1, msm_tmr0_base + WDT0_EN);
-
-		mdelay(10000);
-
-		pr_info("%s: Force Watchdog bark does not work, falling back to normal process.\r\n", __func__);
-	}
-
 #ifdef CONFIG_ARCH_APQ8064
 	pr_info("%s: PS_HOLD to restart\r\n", __func__);
 
