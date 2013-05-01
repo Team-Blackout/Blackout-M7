@@ -1,7 +1,7 @@
 VERSION = 3
 PATCHLEVEL = 4
 SUBLEVEL = 10
-EXTRAVERSION =
+EXTRAVERSION =-Blackout-
 NAME = Saber-toothed Squirrel
 
 # *DOCUMENTATION*
