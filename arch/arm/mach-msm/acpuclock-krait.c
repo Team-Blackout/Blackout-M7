@@ -1228,11 +1228,15 @@ static void __init hw_init(void)
 #ifdef CONFIG_DEBUG_FS
 static int krait_variant_debugfs_show(struct seq_file *s, void *data)
 {
+	seq_printf(s, "Your krait chip speed is: \n");
+	seq_printf(s, "[%s] 1 \n", ((drv.speed_bin == 1) ? "X" : " "));
+	seq_printf(s, "[%s] 2 \n", ((drv.speed_bin == 2) ? "X" : " "));
+
 	seq_printf(s, "Your krait chip variant is: \n");
 	seq_printf(s, "[%s] SLOWEST \n", ((krait_chip_variant == 0) ? "X" : " "));
 	seq_printf(s, "[%s] SLOWER \n", ((krait_chip_variant == 1) ? "X" : " "));
 	seq_printf(s, "[%s] SLOW \n", ((krait_chip_variant == 2) ? "X" : " "));
-	seq_printf(s, "[%s] NOM \n", ((krait_chip_variant == 3) ? "X" : " "));
+	seq_printf(s, "[%s] NORM \n", ((krait_chip_variant == 3) ? "X" : " "));
 	seq_printf(s, "[%s] FAST \n", ((krait_chip_variant == 4) ? "X" : " "));
 	seq_printf(s, "[%s] FASTER \n", ((krait_chip_variant == 5) ? "X" : " "));
 	seq_printf(s, "[%s] FASTEST \n", ((krait_chip_variant == 6) ? "X" : " "));
