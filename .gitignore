@@ -39,6 +39,7 @@ modules.builtin
 *.zip
 *.img
 *.xzkern
+*.img
 
 
 
