@@ -39,7 +39,10 @@ modules.builtin
 *.zip
 *.img
 *.xzkern
+<<<<<<< HEAD
 *.img
+=======
+>>>>>>> a0aaafa... updating gitignore
 
 
 
