@@ -908,8 +908,8 @@ static struct htc_battery_platform_data htc_battery_pdev_data = {
 	.igauge.set_lower_voltage_alarm_threshold =
 						pm8xxx_batt_lower_alarm_threshold_set,
 	
-#ifdef CONFIG_THERMAL_TSENS8960
-	.get_thermal_sensor_temp = tsens_get_sensor_temp,
+#if 0
+						
 #endif
 };
 static struct platform_device htc_battery_pdev = {
@@ -3170,12 +3170,23 @@ static struct platform_device msm_tsens_device = {
 	.id = -1,
 };
 
+
 static struct msm_thermal_data msm_thermal_pdata = {
-	.sensor_id = 0,
-	.poll_ms = 1000,
-	.limit_temp = 51,
-	.temp_hysteresis = 10,
-	.limit_freq = 918000,
+  .sensor_id = 0,
+  .poll_ms = 100,
+  .shutdown_temp = 88,
+
+  .allowed_max_high = 84,
+  .allowed_max_low = 80,
+  .allowed_max_freq = 384000,
+
+  .allowed_mid_high = 81,
+  .allowed_mid_low = 76,
+  .allowed_mid_freq = 810000,
+
+  .allowed_low_high = 79,
+  .allowed_low_low = 73,
+  .allowed_low_freq = 1350000,
 };
 
 #define MSM_SHARED_RAM_PHYS 0x80000000
