@@ -1135,9 +1135,7 @@ static int __init get_pvs_bin(u32 pte_efuse)
 	}
 
 	return pvs_bin;
-#ifdef CONFIG_DEBUG_FS
-        krait_chip_variant = pvs_bin;
-#endif
+
 }
 
 static struct pvs_table * __init select_freq_plan(u32 pte_efuse_phys,
@@ -1158,7 +1156,9 @@ static struct pvs_table * __init select_freq_plan(u32 pte_efuse_phys,
 	
 	drv.speed_bin = get_speed_bin(pte_efuse_val);
 	drv.pvs_bin = get_pvs_bin(pte_efuse_val);
-
+#ifdef CONFIG_DEBUG_FS
+        krait_chip_variant = drv.pvs_bin;
+#endif
 	return &pvs_tables[drv.speed_bin][drv.pvs_bin];
 }
 
@@ -1245,10 +1245,13 @@ static void __init hw_init(void)
 static int krait_variant_debugfs_show(struct seq_file *s, void *data)
 {
 	seq_printf(s, "Your krait chip variant is: \n");
-	seq_printf(s, "[%s] SLOW \n", ((krait_chip_variant == PVS_SLOW) ? "X" : " "));
-	seq_printf(s, "[%s] NOMINAL \n", ((krait_chip_variant == PVS_NOMINAL) ? "X" : " "));
-	seq_printf(s, "[%s] FAST \n", ((krait_chip_variant == PVS_FAST) ? "X" : " "));
-	seq_printf(s, "[%s] FASTER \n", ((krait_chip_variant == PVS_FASTER) ? "X" : " "));
+	seq_printf(s, "[%s] SLOWEST \n", ((krait_chip_variant == 0) ? "X" : " "));
+	seq_printf(s, "[%s] SLOWER \n", ((krait_chip_variant == 1) ? "X" : " "));
+	seq_printf(s, "[%s] SLOW \n", ((krait_chip_variant == 2) ? "X" : " "));
+	seq_printf(s, "[%s] NOM \n", ((krait_chip_variant == 3) ? "X" : " "));
+	seq_printf(s, "[%s] FAST \n", ((krait_chip_variant == 4) ? "X" : " "));
+	seq_printf(s, "[%s] FASTER \n", ((krait_chip_variant == 5) ? "X" : " "));
+	seq_printf(s, "[%s] FASTEST \n", ((krait_chip_variant == 6) ? "X" : " "));
 
 	return 0;
 }
