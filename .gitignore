@@ -33,6 +33,15 @@ modules.builtin
 *.patch
 *.gcno
 *.img
+*.orig
+*.patch
+*.rej
+*.zip
+*.img
+*.xzkern
+
+
+
 
 
 #
