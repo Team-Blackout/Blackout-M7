@@ -28,6 +28,7 @@ struct acoustic_ops {
 	int (*get_htc_revision)(void);
 	int (*get_hw_component)(void);
 	int (*enable_digital_mic)(void);
+	void (*enable_beats)(int en);
 	int (*get_24b_audio)(void);
 };
 

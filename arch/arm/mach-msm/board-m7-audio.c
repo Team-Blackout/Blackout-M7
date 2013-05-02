@@ -78,6 +78,18 @@ static int m7_enable_digital_mic(void)
 	return ret;
 }
 
+int m7_support_beats(void)
+{
+    return 1;
+}
+
+void m7_enable_beats(int en)
+{
+  en = 1;
+  pr_aud_info("%s: %d\n", __func__, en);
+  set_beats_on(en);
+}
+
 void apq8064_set_q6_effect_mode(int mode)
 {
 	pr_info("%s: mode %d\n", __func__, mode);
