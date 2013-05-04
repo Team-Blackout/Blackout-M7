@@ -247,7 +247,7 @@ static void wakeup_source_activate(struct wakeup_source *ws)
 
 	trace_wakeup_source_activate(ws->name, cec);
 }
-
+/*
  * wakeup_source_report_event - Report wakeup event using the given source.
  * @ws: Wakeup source to report the event for.
  */
@@ -262,7 +262,7 @@ static void wakeup_source_report_event(struct wakeup_source *ws)
 		wakeup_source_activate(ws);
 }
 
-/**
+/**/
 void __pm_stay_awake(struct wakeup_source *ws)
 {
 	unsigned long flags;
