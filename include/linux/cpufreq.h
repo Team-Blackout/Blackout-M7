@@ -24,6 +24,18 @@
 #define CPUFREQ_NAME_LEN 16
 
 
+#ifdef CONFIG_CMDLINE_OPTIONS
+/* cmdline_khz variables */
+extern uint32_t cmdline_maxkhz, cmdline_minkhz;
+extern char cmdline_gov[16];
+extern int cmdline_gov_cnt;
+extern uint32_t cmdline_maxscroff;
+extern bool cmdline_scroff;
+
+/* check_khz function for cmdline khz parameters */
+extern uint32_t acpu_check_khz_value(unsigned long khz);
+#endif
+
 
 #define CPUFREQ_TRANSITION_NOTIFIER	(0)
 #define CPUFREQ_POLICY_NOTIFIER		(1)

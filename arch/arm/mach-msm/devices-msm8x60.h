@@ -25,7 +25,15 @@
 #define MSM_GSBI2_QUP_I2C_BUS_ID 9
 #define MSM_GSBI5_QUP_I2C_BUS_ID 10
 #define MSM_GSBI10_QUP_I2C_BUS_ID 11
+#ifdef CONFIG_CMDLINE_OPTIONS
+/* cmdline_gpu variables */
+#define CMDLINE_3DGPU_DEFKHZ_0 500000000
+#define CMDLINE_3DGPU_DEFKHZ_1 500000000
+#define CMDLINE_2DGPU_DEFKHZ 266667000
 
+extern unsigned int cmdline_2dgpu;
+extern unsigned int cmdline_3dgpu[2];
+#endif
 #ifdef CONFIG_SND_SOC_MSM8660_APQ
 extern struct platform_device msm_pcm;
 extern struct platform_device msm_pcm_routing;
