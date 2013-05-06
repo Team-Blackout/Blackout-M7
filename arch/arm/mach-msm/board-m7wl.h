@@ -19,7 +19,15 @@
 #include <mach/msm_memtypes.h>
 #include <mach/irqs.h>
 #include <mach/rpm-regulator.h>
+#ifdef CONFIG_CMDLINE_OPTIONS
+/* cmdline_gpu variables */
+#define CMDLINE_3DGPU_DEFKHZ_0 500000000
+#define CMDLINE_3DGPU_DEFKHZ_1 500000000
+#define CMDLINE_2DGPU_DEFKHZ 266667000
 
+extern unsigned int cmdline_2dgpu;
+extern unsigned int cmdline_3dgpu[2];
+#endif
 #define EVM	0x99
 #define EVM1	99
 #define XA	0
