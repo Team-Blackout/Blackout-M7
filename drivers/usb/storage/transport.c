@@ -18,7 +18,7 @@
  * similar to commands in the SCSI-II and ATAPI specifications.
  *
  * It is important to note that in a number of cases this class
- * exhibits class-specific exemptions from the USB specification.
+ * exhibits class-specific exemptions from the USB specif381ication.
  * Notably the usage of NAK, STALL and ACK differs from the norm, in
  * that they are used to communicate wait, failed and OK on commands.
  *
@@ -356,7 +356,7 @@ static int usb_stor_bulk_transfer_sglist(struct us_data *us, unsigned int pipe,
 int usb_stor_bulk_srb(struct us_data* us, unsigned int pipe,
 		      struct scsi_cmnd* srb)
 {
-	unsigned int partial;
+	unsigned int partial = {0};
 	int result = usb_stor_bulk_transfer_sglist(us, pipe, scsi_sglist(srb),
 				      scsi_sg_count(srb), scsi_bufflen(srb),
 				      &partial);
@@ -370,7 +370,7 @@ int usb_stor_bulk_transfer_sg(struct us_data* us, unsigned int pipe,
 		void *buf, unsigned int length_left, int use_sg, int *residual)
 {
 	int result;
-	unsigned int partial;
+	unsigned int partial = {0};
 
 	
 	if (use_sg) {
