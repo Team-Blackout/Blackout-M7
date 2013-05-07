@@ -2,7 +2,7 @@ VERSION = 3
 PATCHLEVEL = 4
 SUBLEVEL = 15
 EXTRAVERSION =-Blackout-M7
-NAME = Saber-toothed Squirrel
+NAME = Lost-Guppie
 
 # *DOCUMENTATION*
 # To see a list of typical targets execute "make help"
