@@ -47,11 +47,11 @@
 #define MSM_MPDEC_PAUSE                 10000
 #define MSM_MPDEC_IDLE_FREQ             486000
 #ifdef CONFIG_MSM_MPDEC_INPUTBOOST_CPUMIN
-#define MSM_MPDEC_BOOSTTIME             100
-#define MSM_MPDEC_BOOSTFREQ_CPU0        918000
-#define MSM_MPDEC_BOOSTFREQ_CPU1        810000
-#define MSM_MPDEC_BOOSTFREQ_CPU2        702000
-#define MSM_MPDEC_BOOSTFREQ_CPU3        594000
+#define MSM_MPDEC_BOOSTTIME             1000
+#define MSM_MPDEC_BOOSTFREQ_CPU0        1026000
+#define MSM_MPDEC_BOOSTFREQ_CPU1        918000
+#define MSM_MPDEC_BOOSTFREQ_CPU2        810000
+#define MSM_MPDEC_BOOSTFREQ_CPU3        702000
 #endif
 
 enum {
@@ -378,6 +378,12 @@ static void unboost_cpu(int cpu) {
 #endif
                 per_cpu(msm_mpdec_cpudata, cpu).is_boosted = false;
                 per_cpu(msm_mpdec_cpudata, cpu).revib_wq_running = false;
+                if ((cpu_policy->min != per_cpu(msm_mpdec_cpudata, cpu).boost_freq) &&
+                    (cpu_policy->min != per_cpu(msm_mpdec_cpudata, cpu).norm_min_freq)) {
+                    pr_info(MPDEC_TAG"cpu%u min was changed while boosted (%lu->%u), using new min",
+                            cpu, per_cpu(msm_mpdec_cpudata, cpu).norm_min_freq, cpu_policy->min);
+                    per_cpu(msm_mpdec_cpudata, cpu).norm_min_freq = cpu_policy->min;
+                }
                 update_cpu_min_freq(cpu_policy, cpu, per_cpu(msm_mpdec_cpudata, cpu).norm_min_freq);
                 cpufreq_cpu_put(cpu_policy);
                 mutex_unlock(&per_cpu(msm_mpdec_cpudata, cpu).unboost_mutex);
