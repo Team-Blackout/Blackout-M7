@@ -172,9 +172,9 @@ static DEFINE_MUTEX(pwrkeyworklock);
 #ifdef CONFIG_CMDLINE_OPTIONS
 static int __init synaptics_read_s2w_cmdline(char *s2w)
 {
-	if (strcmp(s2w, "2") == 0) {
+	if (strcmp(s2w, "3") == 0) {
 		printk(KERN_INFO "[cmdline_s2w]: Logo2Wake enabled. | s2w='%s'", s2w);
-		s2w_switch = 2;
+		s2w_switch = 3;
 	} else if (strcmp(s2w, "1") == 0) {
 		printk(KERN_INFO "[cmdline_s2w]: Sweep2Wake enabled. | s2w='%s'", s2w);
 		s2w_switch = 1;
