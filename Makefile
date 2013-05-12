@@ -1,8 +1,13 @@
 VERSION = 3
 PATCHLEVEL = 4
 SUBLEVEL = 16
+<<<<<<< HEAD
 EXTRAVERSION =-Blackout-M7
 NAME = Lost-Guppie
+=======
+EXTRAVERSION =
+NAME = Raunchy Racoon
+>>>>>>> 53cc442... removing extraver
 
 # *DOCUMENTATION*
 # To see a list of typical targets execute "make help"
