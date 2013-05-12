@@ -155,7 +155,7 @@ return 1;
 return 0;
 }
 #ifdef CONFIG_TOUCHSCREEN_SYNAPTICS_SWEEP2WAKE
-int s2w_switch = 1;
+int s2w_switch = -1;
 int l2m_switch = 1;
 int s2w_wakestat = 0;
 
