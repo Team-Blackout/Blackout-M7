@@ -95,7 +95,7 @@ static int __init devices_read_3dgpu_cmdline(char *khz)
 		cmdline_3dgpu[1] = CMDLINE_3DGPU_DEFKHZ_1;
 		cmdline_3dgpu[0] = CMDLINE_3DGPU_DEFKHZ_0;
 
-	if (ui_khz < 266667000)
+	if (ui_khz < 228571000)
 		cmdline_3dgpu[1] = CMDLINE_3DGPU_DEFKHZ_1;
 		cmdline_3dgpu[0] = CMDLINE_3DGPU_DEFKHZ_0;
 
