@@ -77,7 +77,7 @@ static int __init devices_read_3dgpu_cmdline(char *khz)
 {
 	unsigned long ui_khz;
 	unsigned long *f;
-	unsigned long valid_freq[7] = {228571000, 266667000, 320000000, 400000000, 450000000,533333000, 0};
+	unsigned long valid_freq[7] = {228571000, 266667000, 320000000, 400000000, 487500000,533333000, 0};
 	int err;
 
 	err = strict_strtoul(khz, 0, &ui_khz);
