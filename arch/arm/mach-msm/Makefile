@@ -6,7 +6,6 @@ obj-y += timer.o
 endif
 obj-y += clock.o clock-voter.o clock-dummy.o
 obj-y += modem_notifier.o subsystem_map.o
-obj-$(CONFIG_CPU_FREQ_MSM) += cpufreq.o
 obj-$(CONFIG_MSM_MPDEC) += msm_mpdecision.o
 obj-$(CONFIG_DEBUG_FS) += nohlt.o clock-debug.o
 obj-$(CONFIG_KEXEC) += msm_kexec.o
@@ -481,3 +480,4 @@ obj-$(CONFIG_IO_FOOTPRINT) += io_footprint.o
 obj-y += htc_cpu_usage_stats.o
 obj-$(CONFIG_FORCE_FAST_CHARGE) += fastchg.o
 
+obj-$(CONFIG_CPU_FREQ_MSM) += cpufreq.o
