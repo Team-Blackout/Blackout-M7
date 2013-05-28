@@ -874,6 +874,7 @@ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
 	}
 #endif
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	if (num_online_cpus() > 1) {
 		if (max_load_other_cpu >
@@ -908,16 +909,26 @@ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
 	
 	if (policy->cur == policy->min){
 		trace_cpufreq_interactive_already (policy->cpu, cur_load, policy->cur,policy->cur);
+=======
+	/* Check for frequency decrease */
+	/* if we cannot reduce the frequency anymore, break out early */
+	if (policy->cur == policy->min)
+>>>>>>> 0397bb3... updating defconfig
 		return;
-	}
 
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> 0397bb3... updating defconfig
 	/*
 	 * The optimal frequency is the frequency that is the lowest that
 	 * can support the current CPU usage without triggering the up
 	 * policy. To be safe, we focus 10 points under the threshold.
 	 */
+<<<<<<< HEAD
+>>>>>>> 0397bb3... updating defconfig
+=======
 >>>>>>> 0397bb3... updating defconfig
 	if (max_load_freq <
 	    (dbs_tuners_ins.up_threshold - dbs_tuners_ins.down_differential) *
@@ -1132,10 +1143,17 @@ static int input_dev_filter(const char* input_dev_name)
 		strstr(input_dev_name, "-keypad") ||
 		strstr(input_dev_name, "-nav") ||
 		strstr(input_dev_name, "-oj")) {
+<<<<<<< HEAD
 	}
 	else {
 		ret = 1;
 	}
+=======
+	}
+	else {
+		ret = 1;
+	}
+>>>>>>> 0397bb3... updating defconfig
 	return ret;
 }
 

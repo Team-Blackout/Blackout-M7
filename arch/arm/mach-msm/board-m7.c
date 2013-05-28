@@ -5435,6 +5435,10 @@ static void __init m7_cdp_init(void)
 #ifdef CONFIG_MSM_CAMERA
 	m7_init_cam();
 #endif
+<<<<<<< HEAD
+=======
+	platform_device_register(&cdp_kp_pdev);
+>>>>>>> 0397bb3... updating defconfig
 
 	
 	
