@@ -97,6 +97,9 @@ char cmdline_gov[16] = "performance";
 #ifdef CONFIG_CPU_FREQ_DEFAULT_GOV_INTELLIDEMAND
 char cmdline_gov[16] = "intellidemand";
 #endif
+#ifdef CONFIG_CPU_FREQ_DEFAULT_GOV_SMARTMAX
+char cmdline_gov[16] = "smartmax";
+#endif
 
 uint32_t cmdline_maxscroff = 486000;
 bool cmdline_scroff = false;
