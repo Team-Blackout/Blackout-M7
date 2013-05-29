@@ -37,6 +37,8 @@
 #include <linux/sched.h>
 #include <linux/rcupdate.h>
 #include <linux/notifier.h>
+#include <linux/swap.h>
+#include <linux/compaction.h>
 
 extern void show_meminfo(void);
 static uint32_t lowmem_debug_level = 2;
@@ -78,6 +80,8 @@ static size_t fork_boost_adj[6] = {
 static unsigned long lowmem_deathpending_timeout;
 static unsigned long lowmem_fork_boost_timeout;
 static uint32_t lowmem_fork_boost = 1;
+
+extern int compact_nodes(bool sync);
 
 #define lowmem_print(level, x...)			\
 	do {						\
@@ -253,6 +257,8 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 	lowmem_print(4, "lowmem_shrink %lu, %x, return %d\n",
 		     sc->nr_to_scan, sc->gfp_mask, rem);
 	rcu_read_unlock();
+	if (selected)
+		compact_nodes(false);
 	return rem;
 }
 
