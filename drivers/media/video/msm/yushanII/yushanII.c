@@ -1107,9 +1107,9 @@ int YushanII_set_defcor(int disable_defcor){
 	Ilp0100_structDefcorParams DefcorParams;
 	pr_info("[CAM] %s, set disable defcor correction:%d", __func__, disable_defcor);
 
-	DefcorParams.BlackStrength = 11;
+	DefcorParams.BlackStrength = 15;
 	DefcorParams.CoupletThreshold = 200;
-	DefcorParams.SingletThreshold = 15;
+	DefcorParams.SingletThreshold = 11;
 	DefcorParams.WhiteStrength = 15;
 
 	if (disable_defcor == 1) {

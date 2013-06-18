@@ -5001,12 +5001,14 @@ static int vd6869_read_fuseid(struct sensor_cfg_data *cdata,
 		cdata->af_value.AF_INF_LSB = OTP[3];
 		cdata->af_value.AF_MACRO_MSB = OTP[4];
 		cdata->af_value.AF_MACRO_LSB = OTP[5];
+		cdata->af_value.ACT_ID = OTP[12];
 		pr_info("VCM_START_MSB =0x%x\n", cdata->af_value.VCM_START_MSB);
 		pr_info("VCM_START_LSB =0x%x\n", cdata->af_value.VCM_START_LSB);
 		pr_info("AF_INF_MSB =0x%x\n", cdata->af_value.AF_INF_MSB);
 		pr_info("AF_INF_LSB =0x%x\n", cdata->af_value.AF_INF_LSB);
 		pr_info("AF_MACRO_MSB =0x%x\n", cdata->af_value.AF_MACRO_MSB);
 		pr_info("AF_MACRO_LSB =0x%x\n", cdata->af_value.AF_MACRO_LSB);
+		pr_info("ACT_ID =0x%x\n", cdata->af_value.ACT_ID);
 		first = false;
 	} else {
 		cdata->af_value.VCM_START_MSB = OTP[0];
@@ -5015,6 +5017,7 @@ static int vd6869_read_fuseid(struct sensor_cfg_data *cdata,
 		cdata->af_value.AF_INF_LSB = OTP[3];
 		cdata->af_value.AF_MACRO_MSB = OTP[4];
 		cdata->af_value.AF_MACRO_LSB = OTP[5];
+		cdata->af_value.ACT_ID = OTP[12];
 
 		cdata->sensor_ver = OTP[10];
 
