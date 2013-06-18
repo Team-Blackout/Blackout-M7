@@ -1,4 +1,4 @@
-/* Copyright (c) 2010-2013, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2010-2012, Code Aurora Forum. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -34,13 +34,13 @@
 #include "vcd_res_tracker_api.h"
 #include "venc_internal.h"
 
-#if DEBUG
-#define DBG(x...) printk(KERN_DEBUG x)
-#else
-#define DBG(x...)
-#endif
+extern u32 vidc_msg_debug;
+#define DBG(x...)				\
+	if (vidc_msg_debug) {			\
+		printk(KERN_DEBUG "[VID] " x);	\
+	}
 
-#define ERR(x...) printk(KERN_ERR x)
+#define ERR(x...) printk(KERN_ERR "[VID] " x)
 static unsigned int vidc_mmu_subsystem[] = {
 	MSM_SUBSYSTEM_VIDEO};
 
@@ -123,10 +123,6 @@ u32 vid_enc_set_get_inputformat(struct video_client_ctx *client_ctx,
 			format.buffer_format =
 				VCD_BUFFER_FORMAT_NV12_16M2KA;
 			break;
-		case VEN_INPUTFMT_NV21_16M2KA:
-			format.buffer_format =
-				VCD_BUFFER_FORMAT_NV21_16M2KA;
-			break;
 		default:
 			status = false;
 			break;
@@ -155,9 +151,6 @@ u32 vid_enc_set_get_inputformat(struct video_client_ctx *client_ctx,
 				break;
 			case VCD_BUFFER_FORMAT_TILE_4x2:
 				*input_format = VEN_INPUTFMT_NV21;
-				break;
-			case VCD_BUFFER_FORMAT_NV21_16M2KA:
-				*input_format = VEN_INPUTFMT_NV21_16M2KA;
 				break;
 			default:
 				status = false;
@@ -1594,7 +1587,7 @@ u32 vid_enc_set_buffer(struct video_client_ctx *client_ctx,
 		vcd_buffer_t = VCD_BUFFER_OUTPUT;
 	}
 	length = buffer_info->sz;
-	/*If buffer cannot be set, ignore */
+	
 	if (!vidc_insert_addr_table(client_ctx, dir_buffer,
 					(unsigned long)buffer_info->pbuffer,
 					&kernel_vaddr,
@@ -1632,7 +1625,7 @@ u32 vid_enc_free_buffer(struct video_client_ctx *client_ctx,
 		dir_buffer = BUFFER_TYPE_OUTPUT;
 		buffer_vcd = VCD_BUFFER_OUTPUT;
 	}
-	/*If buffer NOT set, ignore */
+	
 	if (!vidc_delete_addr_table(client_ctx, dir_buffer,
 				(unsigned long)buffer_info->pbuffer,
 				&kernel_vaddr)) {
@@ -1672,7 +1665,7 @@ u32 vid_enc_encode_frame(struct video_client_ctx *client_ctx,
 			&phy_addr, &pmem_fd, &file,
 			&buffer_index)) {
 
-		/* kernel_vaddr  is found. send the frame to VCD */
+		
 		memset((void *)&vcd_input_buffer, 0,
 					sizeof(struct vcd_frame_data));
 
@@ -1687,7 +1680,7 @@ u32 vid_enc_encode_frame(struct video_client_ctx *client_ctx,
 		vcd_input_buffer.data_len = input_frame_info->len;
 		vcd_input_buffer.time_stamp = input_frame_info->timestamp;
 
-		/* Rely on VCD using the same flags as OMX */
+		
 		vcd_input_buffer.flags = input_frame_info->flags;
 
 		ion_flag = vidc_get_fd_info(client_ctx, BUFFER_TYPE_INPUT,
@@ -1870,7 +1863,7 @@ u32 vid_enc_set_recon_buffers(struct video_client_ctx *client_ctx,
 					VIDEO_DOMAIN,
 					VIDEO_MAIN_POOL,
 					SZ_4K,
-					control->buffer_size * 2,
+					0,
 					(unsigned long *)&iova,
 					(unsigned long *)&buffer_size,
 					0, 0);

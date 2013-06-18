@@ -1,4 +1,4 @@
-/* Copyright (c) 2010-2013, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2010-2012, Code Aurora Forum. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -160,15 +160,9 @@ ion_bail_out:
 static void res_trk_pmem_free(struct ddl_buf_addr *addr)
 {
 	struct ddl_context *ddl_context;
-
-	if (!addr) {
-		DDL_MSG_ERROR("\n%s() NULL address", __func__);
-		return;
-	}
-
 	ddl_context = ddl_get_context();
 	if (ddl_context->video_ion_client) {
-		if (addr->alloc_handle) {
+		if (addr && addr->alloc_handle) {
 			ion_free(ddl_context->video_ion_client,
 			 addr->alloc_handle);
 			addr->alloc_handle = NULL;
@@ -544,8 +538,9 @@ int res_trk_update_bus_perf_level(struct vcd_dev_ctxt *dev_ctxt, u32 perf_level)
 	u32 enc_perf_level = 0, dec_perf_level = 0;
 	u32 bus_clk_index, client_type = 0;
 	int rc = 0;
-	bool turbo_supported =
-		!resource_context.vidc_platform_data->disable_turbo;
+
+	if (dev_ctxt->turbo_mode_set)
+		return rc;
 
 	cctxt_itr = dev_ctxt->cctxt_list_head;
 	while (cctxt_itr) {
@@ -569,8 +564,16 @@ int res_trk_update_bus_perf_level(struct vcd_dev_ctxt *dev_ctxt, u32 perf_level)
 
 	if (dev_ctxt->reqd_perf_lvl + dev_ctxt->curr_perf_lvl == 0)
 		bus_clk_index = 2;
-	else if (!turbo_supported && bus_clk_index == 3)
+	else if (resource_context.vidc_platform_data->disable_turbo
+						&& bus_clk_index == 3) {
+		VCDRES_MSG_ERROR("Warning: Turbo mode not supported "
+				" falling back to 1080p bus\n");
 		bus_clk_index = 2;
+	}
+
+	if (bus_clk_index == 3)
+		dev_ctxt->turbo_mode_set = 1;
+
 	bus_clk_index = (bus_clk_index << 1) + (client_type + 1);
 	VCDRES_MSG_LOW("%s(), bus_clk_index = %d", __func__, bus_clk_index);
 	VCDRES_MSG_LOW("%s(),context.pcl = %x", __func__, resource_context.pcl);
@@ -585,18 +588,21 @@ u32 res_trk_set_perf_level(u32 req_perf_lvl, u32 *pn_set_perf_lvl,
 	struct vcd_dev_ctxt *dev_ctxt)
 {
 	u32 vidc_freq = 0;
-	bool turbo_supported =
-		!resource_context.vidc_platform_data->disable_turbo;
-
 	if (!pn_set_perf_lvl || !dev_ctxt) {
 		VCDRES_MSG_ERROR("%s(): NULL pointer! dev_ctxt(%p)\n",
 			__func__, dev_ctxt);
 		return false;
 	}
+	if (dev_ctxt->turbo_mode_set &&
+			(req_perf_lvl < RESTRK_1080P_TURBO_PERF_LEVEL)) {
+		VCDRES_MSG_MED("%s(): TURBO MODE!!\n", __func__);
+		return true;
+	}
 
 	VCDRES_MSG_LOW("%s(), req_perf_lvl = %d", __func__, req_perf_lvl);
 
-	if (!turbo_supported && req_perf_lvl > RESTRK_1080P_MAX_PERF_LEVEL) {
+	if (resource_context.vidc_platform_data->disable_turbo
+			&& req_perf_lvl > RESTRK_1080P_MAX_PERF_LEVEL) {
 		VCDRES_MSG_ERROR("%s(): Turbo not supported! dev_ctxt(%p)\n",
 			__func__, dev_ctxt);
 	}
@@ -626,8 +632,10 @@ u32 res_trk_set_perf_level(u32 req_perf_lvl, u32 *pn_set_perf_lvl,
 		*pn_set_perf_lvl = RESTRK_1080P_TURBO_PERF_LEVEL;
 	}
 
-	if (!turbo_supported &&
-		 *pn_set_perf_lvl == RESTRK_1080P_TURBO_PERF_LEVEL) {
+	if (resource_context.vidc_platform_data->disable_turbo &&
+		*pn_set_perf_lvl == RESTRK_1080P_TURBO_PERF_LEVEL) {
+		VCDRES_MSG_ERROR("Warning: Turbo mode not supported "
+				" falling back to 1080p clocks\n");
 		vidc_freq = vidc_clk_table[2];
 		*pn_set_perf_lvl = RESTRK_1080P_MAX_PERF_LEVEL;
 	}
@@ -739,9 +747,6 @@ void res_trk_init(struct device *device, u32 irq)
 			resource_context.vidc_platform_data->disable_dmx;
 			resource_context.disable_fullhd =
 			resource_context.vidc_platform_data->disable_fullhd;
-			resource_context.enable_sec_metadata =
-			resource_context.vidc_platform_data->
-				enable_sec_metadata;
 #ifdef CONFIG_MSM_BUS_SCALING
 			resource_context.vidc_bus_client_pdata =
 			resource_context.vidc_platform_data->
@@ -836,11 +841,14 @@ int res_trk_get_mem_type(void)
 	if (resource_context.vidc_platform_data->enable_ion) {
 		if (res_trk_check_for_sec_session()) {
 			mem_type = ION_HEAP(mem_type);
+	if (resource_context.res_mem_type != DDL_FW_MEM)
+		mem_type |= ION_SECURE;
+	else if (res_trk_is_cp_enabled())
+		mem_type |= ION_SECURE;
 	} else
 		mem_type = (ION_HEAP(mem_type) |
 			ION_HEAP(ION_IOMMU_HEAP_ID));
 	}
-
 	return mem_type;
 }
 
@@ -899,10 +907,6 @@ void res_trk_set_mem_type(enum ddl_mem_area mem_type)
 u32 res_trk_get_disable_fullhd(void)
 {
 	return resource_context.disable_fullhd;
-}
-u32 res_trk_get_enable_sec_metadata(void)
-{
-	return resource_context.enable_sec_metadata;
 }
 
 int res_trk_enable_iommu_clocks(void)
@@ -1015,9 +1019,9 @@ int res_trk_open_secure_session()
 	mutex_unlock(&resource_context.secure_lock);
 	return 0;
 unsecure_cmd_heap:
-	msm_ion_unsecure_heap(ION_HEAP(resource_context.cmd_mem_type));
-unsecure_memtype_heap:
 	msm_ion_unsecure_heap(ION_HEAP(resource_context.memtype));
+unsecure_memtype_heap:
+	msm_ion_unsecure_heap(ION_HEAP(resource_context.cmd_mem_type));
 disable_iommu_clks:
 	res_trk_disable_iommu_clocks();
 error_open:

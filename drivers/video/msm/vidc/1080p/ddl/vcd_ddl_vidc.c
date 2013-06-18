@@ -1,4 +1,4 @@
-/* Copyright (c) 2010-2013, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2010-2012, Code Aurora Forum. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -723,15 +723,8 @@ void ddl_vidc_encode_init_codec(struct ddl_client_context *ddl)
 	default:
 	break;
 	}
-	if ((encoder->buf_format.buffer_format ==
-			VCD_BUFFER_FORMAT_NV21_16M2KA)) {
-		DDL_MSG_LOW("NV21 Input format is set to the core");
-		vidc_1080p_set_enc_NV21(true);
-	}
-	if ((encoder->buf_format.buffer_format ==
-		VCD_BUFFER_FORMAT_NV12_16M2KA) ||
-		(encoder->buf_format.buffer_format ==
-		VCD_BUFFER_FORMAT_NV21_16M2KA))
+	if (encoder->buf_format.buffer_format ==
+		VCD_BUFFER_FORMAT_NV12_16M2KA)
 		mem_access_method = VIDC_1080P_TILE_LINEAR;
 	else
 		mem_access_method = VIDC_1080P_TILE_64x32;
@@ -776,8 +769,7 @@ void ddl_vidc_encode_frame_run(struct ddl_client_context *ddl)
 	struct vcd_frame_data *stream = &(ddl->output_frame.vcd_frm);
 	struct vcd_frame_data *input_vcd_frm =
 		&(ddl->input_frame.vcd_frm);
-	u32 dpb_addr_y[VIDC_1080P_MAX_DEC_DPB];
-	u32 dpb_addr_c[VIDC_1080P_MAX_DEC_DPB];
+	u32 dpb_addr_y[4], dpb_addr_c[4];
 	u32 index, y_addr, c_addr;
 
 	DDL_MSG_LOW("%s\n", __func__);
@@ -885,8 +877,7 @@ void ddl_vidc_encode_slice_batch_run(struct ddl_client_context *ddl)
 	struct ddl_enc_buffers *enc_buffers = &(encoder->hw_bufs);
 	struct vcd_frame_data *input_vcd_frm =
 		&(ddl->input_frame.vcd_frm);
-	u32 dpb_addr_y[VIDC_1080P_MAX_DEC_DPB];
-	u32 dpb_addr_c[VIDC_1080P_MAX_DEC_DPB];
+	u32 dpb_addr_y[4], dpb_addr_c[4];
 	u32 index, y_addr, c_addr;
 	u32 bitstream_size;
 	struct vidc_1080p_enc_slice_batch_in_param *slice_batch_in =
