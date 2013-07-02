@@ -399,96 +399,6 @@ void YushanII_set_frontcam_parm(
 	#endif
 }
 
-
-
-void YushanII_set_backcam_outputformat(struct msm_sensor_ctrl_t *sensor,int res,
-	Ilp0100_structFrameFormat *output_format)
-{
-
-	int pixel_format ;
-	pixel_format =
-		sensor->curr_csi_params->csid_params.lut_params.vc_cfg->dt;
-
-	pr_info("[CAM]%s",__func__);
-	output_format->ActiveLineLengthPixels =
-		sensor->msm_sensor_reg->output_settings[res].x_output;
-	output_format->ActiveFrameLengthLines =
-		sensor->msm_sensor_reg->output_settings[res].y_output;
-	output_format->LineLengthPixels =
-		sensor->msm_sensor_reg->output_settings[res].line_length_pclk;
-
-	
-	if(sensor->sensordata->sensor_cut == 0 &&
-		sensor->sensordata->hdr_mode == 0)
-		output_format->FrameLengthLines = 
-			sensor->msm_sensor_reg->output_settings[res].frame_length_lines*2;
-	else
-		output_format->FrameLengthLines =
-		sensor->msm_sensor_reg->output_settings[res].frame_length_lines;
-
-	switch(pixel_format){
-		case CSI_RAW8:
-			output_format->uwOutputPixelFormat = RAW_8;
-			break;
-		case CSI_RAW10:
-			output_format->uwOutputPixelFormat = RAW_10;
-			break;
-		case CSI_RAW12:
-			output_format->uwOutputPixelFormat = RAW_12;
-			break;
-	}
-
-	
-	
-	output_format->StatusLinesOutputted = TRUE;
-	output_format->StatusNbLines = 2;
-	output_format->ImageOrientation = sensor->sensordata->sensor_platform_info->mirror_flip;
-	output_format->StatusLineLengthPixels =
-		sensor->msm_sensor_reg->output_settings[res].x_output;
-	
-
-	output_format->MinInterframe =
-		(output_format->FrameLengthLines -
-		output_format->ActiveFrameLengthLines -
-		output_format->StatusNbLines);
-	output_format->AutomaticFrameParamsUpdate = TRUE;
-
-	if(sensor->sensordata->hdr_mode)
-		output_format->HDRMode = STAGGERED;
-	else
-		output_format->HDRMode = HDR_NONE;
-
-	output_format->Hoffset =
-			sensor->msm_sensor_reg->output_settings[res].x_addr_start;
-	output_format->Voffset =
-			sensor->msm_sensor_reg->output_settings[res].y_addr_start;
-
-	
-	output_format->HScaling = 1;
-	output_format->VScaling = 1;
-
-	if(sensor->msm_sensor_reg->output_settings[res].binning_factor == 2){
-		output_format->Binning = 0x22;
-	}else{
-		output_format->Binning = 0x11;
-	}
-	#ifdef YUSHANII_CONFIG_DUMP
-	pr_info("[CAM]%s Hoffset:%d", __func__, output_format->Hoffset);
-	pr_info("[CAM]%s Voffset:%d", __func__,output_format->Voffset);
-	pr_info("[CAM]%s ActiveLineLengthPixels:%d", __func__, output_format->ActiveLineLengthPixels);
-	pr_info("[CAM]%s ActiveFrameLengthLines:%d", __func__,output_format->ActiveFrameLengthLines);
-	pr_info("[CAM]%s LineLengthPixels:%d", __func__,output_format->LineLengthPixels);
-	pr_info("[CAM]%s FrameLengthLines:%d", __func__,output_format->FrameLengthLines);
-	pr_info("[CAM]%s StatusLinesOutputted:%d", __func__,output_format->StatusLinesOutputted);
-	pr_info("[CAM]%s StatusNbLines:%d", __func__,output_format->StatusNbLines);
-	pr_info("[CAM]%s ImageOrientation:%d", __func__,output_format->ImageOrientation);
-	pr_info("[CAM]%s StatusLineLengthPixels:%d", __func__,output_format->StatusLineLengthPixels);
-	pr_info("[CAM]%s MinInterframe:%d", __func__,output_format->MinInterframe);
-	pr_info("[CAM]%s HDRMode:%d", __func__,output_format->HDRMode);
-	#endif
-	return;
-}
-
 void YushanII_set_frontcam_outputformat(struct msm_sensor_ctrl_t *sensor,int res,
 	Ilp0100_structFrameFormat *output_format)
 {
@@ -576,7 +486,6 @@ void YushanII_init_backcam(struct msm_sensor_ctrl_t *sensor,int res){
 	pr_info("[CAM]%s,res=%d,is_hdr=%d",
 		__func__, res,sensor->msm_sensor_reg->output_settings[res].is_hdr);
 	YushanII_login_start();
-
 	
 	if(sensor->msm_sensor_reg->output_settings[res].is_hdr)
 		sensor->sensordata->hdr_mode = 1;
@@ -595,20 +504,6 @@ void YushanII_init_backcam(struct msm_sensor_ctrl_t *sensor,int res){
 		reload_firmware = 0;
 		Previous_MIPIclock =
 			sensor->msm_sensor_reg->output_settings[res].op_pixel_clk;
-	}
-
-	
-	if(sensor->msm_sensor_reg->output_settings[res].op_pixel_clk != Previous_MIPIclock){
-		reinit = true;
-		Previous_MIPIclock =
-			sensor->msm_sensor_reg->output_settings[res].op_pixel_clk;
-	}
-	if(reinit) {
-		memset(&YushanII_emptyFirmware, 0x00, sizeof(Ilp0100_structInitFirmware));
-		pr_info("[CAM]%s, change MIPI clock rate , reinit YushanII",__func__);
-		reinit = false;
-		Ilp0100_stop();
-		Ilp0100_init(YushanII_init, YushanII_emptyFirmware, YushanII_sensor);
 	}
 
 	

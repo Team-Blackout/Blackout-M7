@@ -1925,7 +1925,7 @@ static struct msm_camera_i2c_reg_conf vd6869_fast_video_settings_cut10[] = {
 	{0x0304, 0x00},
 	{0x0305, 0x02},     
 	{0x0306, 0x00},
-	{0x0307, 0x53},     
+	{0x0307, 0x50},     
 
 	{0x300, 0x00}, 
 	{0x301, 0x0a},
@@ -1936,8 +1936,8 @@ static struct msm_camera_i2c_reg_conf vd6869_fast_video_settings_cut10[] = {
 
        {0x340, 0x03}, 
        {0x341, 0x30},
-       {0x342, 0x09}, 
-       {0x343, 0x60},
+       {0x342, 0x07}, 
+       {0x343, 0xD0},
 
 	{0x3339, 0x00}, 
 	{0x333A, 0x00}, 
@@ -4463,7 +4463,7 @@ static struct msm_sensor_output_info_t vd6869_dimensions_cut10[] = {
 		.y_addr_start = 0,
 		.x_output = 0x540, 
 		.y_output = 0x2f8, 
-		.line_length_pclk = 0x960, 
+		.line_length_pclk = 0x7D0, 
 		.frame_length_lines = 0x330, 
 		.vt_pixel_clk = 199200000,
 		.op_pixel_clk = 199200000,
