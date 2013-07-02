@@ -295,7 +295,6 @@ board-elite-all-objs += board-elite.o board-elite-gpiomux.o devices-8960.o board
 board-monarudo-all-objs += board-monarudo.o board-monarudo-pmic.o board-monarudo-storage.o board-monarudo-gpiomux.o board-monarudo-display.o board-monarudo-gpu.o board-monarudo-keypad.o board-monarudo-wifi.o  board-monarudo-audio.o
 board-m7-all-objs += board-m7.o board-m7-pmic.o board-m7-storage.o board-m7-gpiomux.o board-m7-keypad.o board-m7-wifi.o board-m7-audio.o
 board-m7wls-all-objs += board-m7wls.o board-m7wls-pmic.o board-m7wl-storage.o board-m7wl-gpiomux.o board-m7wl-keypad.o board-m7wl-wifi.o board-m7wl-audio.o
-single tree
 ifdef CONFIG_FB_MSM
 board-m7-all-objs += board-m7-display.o board-m7-gpu.o
 board-m7wls-all-objs += board-m7wl-display.o board-m7wl-gpu.o
