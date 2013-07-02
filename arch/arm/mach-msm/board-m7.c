@@ -3732,8 +3732,16 @@ static struct msm_thermal_data msm_thermal_pdata = {
   .allowed_max_high = 84,
   .allowed_max_low = 80,
   .allowed_max_freq = 384000,
+  .allowed_mid_high = 81,
+  .allowed_mid_low = 76,
+  .allowed_mid_freq = 810000,
 
-<<<<<<< HEAD
+  .allowed_low_high = 79,
+  .allowed_low_low = 73,
+  .allowed_low_freq = 1350000,
+};
+
+
 static int __init check_dq_setup(char *str)
 {
 	int i = 0;
@@ -3755,16 +3763,7 @@ static int __init check_dq_setup(char *str)
 __setup("androidboot.dq=", check_dq_setup);
 
 
-=======
-  .allowed_mid_high = 81,
-  .allowed_mid_low = 76,
-  .allowed_mid_freq = 810000,
 
-  .allowed_low_high = 79,
-  .allowed_low_low = 73,
-  .allowed_low_freq = 1350000,
-};
->>>>>>> 994dc37... msm_thermal: patch to upstream
 #define MSM_SHARED_RAM_PHYS 0x80000000
 static void __init m7_map_io(void)
 {
