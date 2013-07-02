@@ -209,8 +209,6 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 		if (!p)
 			continue;
 
-<<<<<<< HEAD
-=======
 		if (test_tsk_thread_flag(p, TIF_MEMDIE) &&
 		    time_before_eq(jiffies, lowmem_deathpending_timeout)) {
 			lowmem_print(2, "%d (%s), oom_adj %d score_adj %d, is exiting, return\n"
@@ -219,7 +217,6 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 			rcu_read_unlock();
 			return rem;
 		}
->>>>>>> 8ce8011... Modify return values to avoid extra calls
 		oom_score_adj = p->signal->oom_score_adj;
 		if (oom_score_adj < min_score_adj) {
 			task_unlock(p);
