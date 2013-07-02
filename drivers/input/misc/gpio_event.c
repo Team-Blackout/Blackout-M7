@@ -20,13 +20,10 @@
 #include <linux/hrtimer.h>
 #include <linux/platform_device.h>
 #include <linux/slab.h>
-<<<<<<< HEAD
 #include <mach/board_htc.h>
-=======
 #ifdef CONFIG_TOUCHSCREEN_SYNAPTICS_SWEEP2WAKE
 #include <linux/synaptics_i2c_rmi.h>
 #endif
->>>>>>> 477f3fe... Logo2Menu picked from Tbalden at
 
 struct gpio_event {
 	struct gpio_event_input_devs *input_devs;
