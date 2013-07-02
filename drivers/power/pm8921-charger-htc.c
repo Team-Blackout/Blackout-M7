@@ -3394,7 +3394,8 @@ finish_due_to_no_cable:
 
 static int find_usb_ma_value(int value)
 {
-	int i = 0;
+	int i;
+    
 
 	for (i = ARRAY_SIZE(usb_ma_table) - 1; i >= 0; i--) {
 		if (value >= usb_ma_table[i].usb_ma)
@@ -4223,7 +4224,10 @@ static void dump_irq_rt_status(void)
 
 static void dump_reg(void)
 {
-	u64 val = 0;
+	u64 val;
+	unsigned int len =0;
+
+	memset(batt_log_buf, 0, sizeof(BATT_LOG_BUF_LEN));
 
 	get_reg((void *)CHG_CNTRL, &val);
 	len += scnprintf(batt_log_buf + len, BATT_LOG_BUF_LEN - len, "CNTRL=0x%llx,", val);
@@ -6000,7 +6004,7 @@ static void ext_usb_vbatdet_irq_handler(struct work_struct *w)
 
 static void ext_usb_chgdone_irq_handler(struct work_struct *w)
 {
-	int result =0;
+	int result = 0;
 
 	pm8921_get_batt_voltage(&result);
 

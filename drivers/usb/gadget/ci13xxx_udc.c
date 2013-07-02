@@ -312,6 +312,7 @@ static int hw_ep_flush(int num, int dir)
 
 static int hw_ep_disable(int num, int dir)
 {
+	hw_ep_flush(num, dir);
 	hw_cwrite(CAP_ENDPTCTRL + num * sizeof(u32),
 		  dir ? ENDPTCTRL_TXE : ENDPTCTRL_RXE, 0);
 	return 0;
@@ -2207,7 +2208,6 @@ static int ep_enable(struct usb_ep *ep,
 	struct ci13xxx_ep *mEp = container_of(ep, struct ci13xxx_ep, ep);
 	int retval = 0;
 	unsigned long flags;
-	unsigned mult = 0;
 
 	trace("%p, %p", ep, desc);
 
@@ -2233,15 +2233,12 @@ static int ep_enable(struct usb_ep *ep,
 
 	mEp->qh.ptr->cap = 0;
 
-	if (mEp->type == USB_ENDPOINT_XFER_CONTROL) {
+	if (mEp->type == USB_ENDPOINT_XFER_CONTROL)
 		mEp->qh.ptr->cap |=  QH_IOS;
-	} else if (mEp->type == USB_ENDPOINT_XFER_ISOC) {
+	else if (mEp->type == USB_ENDPOINT_XFER_ISOC)
 		mEp->qh.ptr->cap &= ~QH_MULT;
-		mult = ((mEp->ep.maxpacket >> QH_MULT_SHIFT) + 1) & 0x03;
-		mEp->qh.ptr->cap |= (mult << ffs_nr(QH_MULT));
-	} else {
+	else
 		mEp->qh.ptr->cap |= QH_ZLT;
-	}
 
 	mEp->qh.ptr->cap |=
 		(mEp->ep.maxpacket << ffs_nr(QH_MAX_PKT)) & QH_MAX_PKT;
@@ -2290,7 +2287,6 @@ static int ep_disable(struct usb_ep *ep)
 
 	mEp->desc = NULL;
 	mEp->ep.desc = NULL;
-	mEp->ep.maxpacket = USHRT_MAX;
 
 	spin_unlock_irqrestore(mEp->lock, flags);
 	return retval;
@@ -2732,8 +2728,7 @@ static int ci13xxx_start(struct usb_gadget_driver *driver,
 
 			mEp->ep.name      = mEp->name;
 			mEp->ep.ops       = &usb_ep_ops;
-			mEp->ep.maxpacket =
-				k ? USHRT_MAX : CTRL_PAYLOAD_MAX;
+			mEp->ep.maxpacket = CTRL_PAYLOAD_MAX;
 
 			INIT_LIST_HEAD(&mEp->qh.queue);
 			spin_unlock_irqrestore(udc->lock, flags);

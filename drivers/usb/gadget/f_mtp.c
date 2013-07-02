@@ -586,7 +586,6 @@ static ssize_t mtp_read(struct file *fp, char __user *buf,
 	if (count > MTP_BULK_BUFFER_SIZE) {
 		file_xfer_zlp_flag = 1;
 		
-		mtp_qos_enable(1);
 	}
 
 	while (count > 0) {
