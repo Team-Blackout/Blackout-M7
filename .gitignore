@@ -33,7 +33,6 @@ modules.builtin
 *.patch
 *.gcno
 *.img
-<<<<<<< HEAD
 *.orig
 *.patch
 *.rej
@@ -44,8 +43,6 @@ modules.builtin
 
 
 
-=======
->>>>>>> 27a75af... thermal: update upstream msm_thermal with 3-phase control
 
 
 #
