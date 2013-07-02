@@ -2728,8 +2728,7 @@ config MACH_M7_WLS
         depends on ARCH_APQ8064
         bool "APQ8064 M7_WLS"
         help
-          Support for the HTC APQ8064 M7_WLS.
-single tree
+          Support for the HTC APQ8064 M7_WLS single tree
 
 config QSC_MODEM
         default n
