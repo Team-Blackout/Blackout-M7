@@ -2200,28 +2200,14 @@ void m7_set_cabc (struct msm_fb_data_type *mfd, int mode)
 			cmdreq.cb = NULL;
 			mipi_dsi_cmdlist_put(&cmdreq);
 
-		PR_DISP_INFO("set_cabc mode = %d\n", mode);
-       } else if (panel_type == PANEL_ID_M7_JDI_SAMSUNG_C2_1 ||
-			panel_type == PANEL_ID_M7_JDI_SAMSUNG_C2_2) {
-               if (mode == 2) {
-                       samsung_MIE_ctrl1[1] = 0x40;
-                       BCSAVE[2] = 0xB3;
-                       TMF[1] = 0x33;
-               } else if (mode == 3) {
-                       samsung_MIE_ctrl1[1] = 0x80;
-                       BCSAVE[2] = 0x99;
-                       TMF[1] = 0x2C;
-               } else
-                       return;
-
-               cmdreq.cmds = jdi_set_cabc_mode_cmds;
-               cmdreq.cmds_cnt = ARRAY_SIZE(jdi_set_cabc_mode_cmds);
-               cmdreq.flags = CMD_REQ_COMMIT;
-               cmdreq.rlen = 0;
-               cmdreq.cb = NULL;
-
-               mipi_dsi_cmdlist_put(&cmdreq);
-	       PR_DISP_INFO("set_cabc strength = %d\n", mode);
+			cur_cabc_mode = req_cabc_zoe_mode;
+			PR_DISP_INFO("set_cabc_zoe mode = %d\n", cur_cabc_mode);
+		}
+		mutex_unlock(&set_cabc_mutex);
+		return;
+	} else {
+		mutex_unlock(&set_cabc_mutex);
+		return;
 	}
 
 	cmdreq.flags = CMD_REQ_COMMIT;

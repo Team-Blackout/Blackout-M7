@@ -21,10 +21,6 @@
 #include "mach/socinfo.h"
 #include "acpuclock.h"
 #include "acpuclock-krait.h"
-#ifdef CONFIG_PERFLOCK
-#include <mach/perflock.h>
-#endif
-
 
 static struct hfpll_data hfpll_data __initdata = {
 	.mode_offset = 0x00,
@@ -52,10 +48,6 @@ static struct scalable scalable[] __initdata = {
 		.sec_clk_sel = 2,
 		.l2cpmr_iaddr = 0x4501,
 		.vreg[VREG_CORE] = { "krait0", 1325000 },
-<<<<<<< HEAD
->>>>>>> 75c1cfb... arch/arm/mach-msm acpuclock ADD: ultra low clock freqs for screen off battery saving :D
-=======
->>>>>>> 1f641ea... fixing merge error
 		.vreg[VREG_MEM]  = { "krait0_mem", 1250000 },
 		.vreg[VREG_DIG]  = { "krait0_dig", 1250000 },
 		.vreg[VREG_HFPLL_A] = { "krait0_hfpll", 1800000 },
@@ -67,10 +59,6 @@ static struct scalable scalable[] __initdata = {
 		.sec_clk_sel = 2,
 		.l2cpmr_iaddr = 0x5501,
 		.vreg[VREG_CORE] = { "krait1", 1325000 },
-<<<<<<< HEAD
->>>>>>> 75c1cfb... arch/arm/mach-msm acpuclock ADD: ultra low clock freqs for screen off battery saving :D
-=======
->>>>>>> 1f641ea... fixing merge error
 		.vreg[VREG_MEM]  = { "krait1_mem", 1250000 },
 		.vreg[VREG_DIG]  = { "krait1_dig", 1250000 },
 		.vreg[VREG_HFPLL_A] = { "krait1_hfpll", 1800000 },
@@ -82,10 +70,6 @@ static struct scalable scalable[] __initdata = {
 		.sec_clk_sel = 2,
 		.l2cpmr_iaddr = 0x6501,
 		.vreg[VREG_CORE] = { "krait2", 1325000 },
-<<<<<<< HEAD
->>>>>>> 75c1cfb... arch/arm/mach-msm acpuclock ADD: ultra low clock freqs for screen off battery saving :D
-=======
->>>>>>> 1f641ea... fixing merge error
 		.vreg[VREG_MEM]  = { "krait2_mem", 1250000 },
 		.vreg[VREG_DIG]  = { "krait2_dig", 1250000 },
 		.vreg[VREG_HFPLL_A] = { "krait2_hfpll", 1800000 },
@@ -97,10 +81,6 @@ static struct scalable scalable[] __initdata = {
 		.sec_clk_sel = 2,
 		.l2cpmr_iaddr = 0x7501,
 		.vreg[VREG_CORE] = { "krait3", 1325000 },
-<<<<<<< HEAD
->>>>>>> 75c1cfb... arch/arm/mach-msm acpuclock ADD: ultra low clock freqs for screen off battery saving :D
-=======
->>>>>>> 1f641ea... fixing merge error
 		.vreg[VREG_MEM]  = { "krait3_mem", 1250000 },
 		.vreg[VREG_DIG]  = { "krait3_dig", 1250000 },
 		.vreg[VREG_HFPLL_A] = { "krait3_hfpll", 1800000 },
@@ -636,74 +616,15 @@ static struct acpuclk_krait_params acpuclk_8064_params __initdata = {
 	.stby_khz = 384000,
 };
 
-#ifdef CONFIG_PERFLOCK
-unsigned msm8064_perf_acpu_table[] = {
-	594000000, 
-	810000000, 
-	1026000000,
-	1134000000,
-	1512000000, 
-};
-
-static struct perflock_data msm8064_floor_data = {
-	.perf_acpu_table = msm8064_perf_acpu_table,
-	.table_size = ARRAY_SIZE(msm8064_perf_acpu_table),
-};
-
-static struct perflock_data msm8064_cpufreq_ceiling_data = {
-	.perf_acpu_table = msm8064_perf_acpu_table,
-	.table_size = ARRAY_SIZE(msm8064_perf_acpu_table),
-};
-
-static struct perflock_pdata perflock_pdata = {
-	.perf_floor = &msm8064_floor_data,
-	.perf_ceiling = &msm8064_cpufreq_ceiling_data,
-};
-
-struct platform_device msm8064_device_perf_lock = {
-	.name = "perf_lock",
-	.id = -1,
-	.dev = {
-		.platform_data = &perflock_pdata,
-	},
-};
-
-extern uint32_t __init msm_get_cpu_speed_bin(void);
-static void __init perftable_fix_up(void)
-{
-	uint32_t speed;
-	speed = msm_get_cpu_speed_bin();
-	
-	if(speed == 0)
-		msm8064_perf_acpu_table[PERF_LOCK_HIGHEST] = 1512000000;
-	
-	else if(speed == 1)
-		msm8064_perf_acpu_table[PERF_LOCK_HIGHEST] = 1566000000;
-	
-	else if(speed == 2)
-		msm8064_perf_acpu_table[PERF_LOCK_HIGHEST] = 1512000000;
-	
-	else
-		msm8064_perf_acpu_table[PERF_LOCK_HIGHEST] = 1512000000;
-}
-#endif
-
 static int __init acpuclk_8064_probe(struct platform_device *pdev)
 {
-	int ret;
 	if (cpu_is_apq8064ab() ||
 		SOCINFO_VERSION_MAJOR(socinfo_get_version()) == 2) {
 		acpuclk_8064_params.hfpll_data->low_vdd_l_max = 37;
 		acpuclk_8064_params.hfpll_data->nom_vdd_l_max = 74;
 	}
 
-	ret = acpuclk_krait_init(&pdev->dev, &acpuclk_8064_params);
-
-#ifdef CONFIG_PERFLOCK
-		if (!ret)
-			perftable_fix_up();
-#endif
-	return ret;
+	return acpuclk_krait_init(&pdev->dev, &acpuclk_8064_params);
 }
 
 static struct platform_driver acpuclk_8064_driver = {
@@ -719,7 +640,6 @@ static int __init acpuclk_8064_init(void)
 				     acpuclk_8064_probe);
 }
 device_initcall(acpuclk_8064_init);
-
 #ifdef CONFIG_CMDLINE_OPTIONS
 uint32_t __init acpu_check_khz_value(unsigned long khz)
 {
