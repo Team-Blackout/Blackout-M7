@@ -1364,7 +1364,6 @@ struct sensor_cfg_data {
 		
 		
 		struct fuse_id fuse;
-		af_value_t af_value;
 		
 		vcm_pos calib_vcm_pos; 
 #if 1 

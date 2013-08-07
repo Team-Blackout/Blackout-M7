@@ -24,7 +24,6 @@
 #include "../devices.h"
 #include "../board-8930.h"
 
-#include "../board-operaul.h"
 
 #ifdef CONFIG_MSM_BUS_SCALING
 static struct msm_bus_vectors grp3d_init_vectors[] = {
