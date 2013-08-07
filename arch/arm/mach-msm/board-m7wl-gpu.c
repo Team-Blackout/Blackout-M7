@@ -19,10 +19,9 @@
 #include <mach/msm_dcvs.h>
 #include <mach/socinfo.h>
 #include "devices.h"
-#include "board-m7wls.h"
+#include "board-m7wl.h"
 
 #include "../devices.h"
-#include "../board-8930.h"
 
 
 #ifdef CONFIG_MSM_BUS_SCALING
@@ -53,21 +52,6 @@ static struct msm_bus_vectors grp3d_low_vectors[] = {
 		.dst = MSM_BUS_SLAVE_EBI_CH0,
 		.ab = 0,
 		.ib = KGSL_CONVERT_TO_MBPS(1000),
-	},
-};
-
-static struct msm_bus_vectors grp3d_nominal_low_vectors[] = {
-	{
-		.src = MSM_BUS_MASTER_GRAPHICS_3D,
-		.dst = MSM_BUS_SLAVE_EBI_CH0,
-		.ab = 0,
-		.ib = KGSL_CONVERT_TO_MBPS(2000),
-	},
-	{
-		.src = MSM_BUS_MASTER_GRAPHICS_3D_PORT1,
-		.dst = MSM_BUS_SLAVE_EBI_CH0,
-		.ab = 0,
-		.ib = KGSL_CONVERT_TO_MBPS(2000),
 	},
 };
 
@@ -196,7 +180,6 @@ static struct kgsl_device_platform_data kgsl_3d0_pdata = {
 #endif
 	.iommu_data = kgsl_3d0_iommu_data,
 	.iommu_count = ARRAY_SIZE(kgsl_3d0_iommu_data),
-	.snapshot_address = MSM_GPU_SNAP_SHOT_3D0_PHYS,
 };
 
 static struct platform_device device_kgsl_3d0 = {
