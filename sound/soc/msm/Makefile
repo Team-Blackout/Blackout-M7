@@ -66,6 +66,9 @@ ifdef CONFIG_ARCH_APQ8064
 ifdef CONFIG_ARCH_APQ8064_M7
 snd-soc-msm8960-objs := apq8064_M7.o mpq8064.o
 else ifdef CONFIG_ARCH_DUMMY
+else ifdef CONFIG_ARCH_DUMMY
+else ifdef CONFIG_ARCH_DUMMY
+else ifdef CONFIG_ARCH_DUMMY
 else
 snd-soc-msm8960-objs := apq8064.o mpq8064.o
 endif
@@ -80,6 +83,10 @@ else
 #snd-soc-msm8960-objs := msm8960.o
 #obj-$(CONFIG_SND_SOC_MSM8960) += snd-soc-msm8960.o
 #endif
+ifdef CONFIG_SND_SOC_MSM8930_HTC
+snd-soc-msm8960-objs := msm8930_htc.o
+obj-$(CONFIG_SND_SOC_MSM8960) += snd-soc-msm8960.o
+endif
 endif
 
 # Generic MSM drivers
