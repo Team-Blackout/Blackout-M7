@@ -41,7 +41,9 @@
 
 #include <sound/apr_audio.h>
 #include <sound/q6asm.h>
+#include "q6debug.h"
 
+#define HTC_AUD_DEBUG 1
 #undef pr_info
 #undef pr_err
 #define pr_info(fmt, ...) pr_aud_info(fmt, ##__VA_ARGS__)
@@ -1269,7 +1271,7 @@ int q6asm_open_read(struct audio_client *ac,
 	if (!rc) {
 		pr_err("%s: timeout. waited for OPEN_WRITE rc[%d]\n", __func__,
 			rc);
-                
+		HTC_Q6_BUG();
 		goto fail_cmd;
 	}
 
@@ -1377,7 +1379,7 @@ int q6asm_open_write_compressed(struct audio_client *ac, uint32_t format)
 		pr_err("%s: timeout. waited for OPEN_WRITE rc[%d]\n", __func__,
 			rc);
 #ifdef HTC_AUD_DEBUG
-                
+		HTC_Q6_BUG();
 #endif
 		goto fail_cmd;
 	}
@@ -1470,7 +1472,7 @@ int q6asm_open_write(struct audio_client *ac, uint32_t format)
 	if (!rc) {
 		pr_err("%s: timeout. waited for OPEN_WRITE rc[%d]\n", __func__,
 			rc);
-                
+		HTC_Q6_BUG();
 		goto fail_cmd;
 	}
 	if (atomic_read(&ac->cmd_response)) {
@@ -1683,7 +1685,7 @@ int q6asm_open_read_write(struct audio_client *ac,
 			(atomic_read(&ac->cmd_state) == 0), 5*HZ);
 	if (!rc) {
 		pr_err("timeout. waited for OPEN_WRITE rc[%d]\n", rc);
-                
+		HTC_Q6_BUG();
 		goto fail_cmd;
 	}
 	return 0;
@@ -1724,9 +1726,7 @@ int q6asm_run(struct audio_client *ac, uint32_t flags,
 			(atomic_read(&ac->cmd_state) == 0), 5*HZ);
 	if (!rc) {
 		pr_err("timeout. waited for run success rc[%d]", rc);
-#ifdef HTC_AUD_DEBUG
-                
-#endif
+		HTC_Q6_BUG();
 		goto fail_cmd;
 	}
 
@@ -1797,9 +1797,7 @@ int q6asm_enc_cfg_blk_aac(struct audio_client *ac,
 			(atomic_read(&ac->cmd_state) == 0), 5*HZ);
 	if (!rc) {
 		pr_err("timeout. waited for FORMAT_UPDATE\n");
-#ifdef HTC_AUD_DEBUG
-                
-#endif
+		HTC_Q6_BUG();
 		goto fail_cmd;
 	}
 	return 0;
@@ -1841,9 +1839,7 @@ int q6asm_enc_cfg_blk_pcm(struct audio_client *ac,
 			(atomic_read(&ac->cmd_state) == 0), 5*HZ);
 	if (!rc) {
 		pr_err("timeout opcode[0x%x] ", enc_cfg.hdr.opcode);
-#ifdef HTC_AUD_DEBUG
-                
-#endif
+		HTC_Q6_BUG();
 		goto fail_cmd;
 	}
 	return 0;
@@ -1885,9 +1881,7 @@ int q6asm_enc_cfg_blk_pcm_native(struct audio_client *ac,
 			(atomic_read(&ac->cmd_state) == 0), 5*HZ);
 	if (!rc) {
 		pr_err("timeout opcode[0x%x] ", enc_cfg.hdr.opcode);
-#ifdef HTC_AUD_DEBUG
-                
-#endif
+		HTC_Q6_BUG();
 		goto fail_cmd;
 	}
 	return 0;
@@ -1967,9 +1961,7 @@ int q6asm_enc_cfg_blk_multi_ch_pcm(struct audio_client *ac,
 			(atomic_read(&ac->cmd_state) == 0), 5*HZ);
 	if (!rc) {
 		pr_err("timeout opcode[0x%x] ", enc_cfg.hdr.opcode);
-#ifdef HTC_AUD_DEBUG
-                
-#endif
+		HTC_Q6_BUG();
 		goto fail_cmd;
 	}
 	return 0;
@@ -2043,9 +2035,7 @@ int q6asm_cfg_dual_mono_aac(struct audio_client *ac,
 	if (!rc) {
 		pr_err("%s:timeout opcode[0x%x]\n", __func__,
 						dual_mono.hdr.opcode);
-#ifdef HTC_AUD_DEBUG
-                
-#endif
+		HTC_Q6_BUG();
 		goto fail_cmd;
 	}
 	return 0;
@@ -2106,9 +2096,7 @@ int q6asm_set_encdec_chan_map(struct audio_client *ac,
 	if (!rc) {
 		pr_err("%s:timeout opcode[0x%x]\n", __func__,
 						chan_map.hdr.opcode);
-#ifdef HTC_AUD_DEBUG
-                
-#endif
+		HTC_Q6_BUG();
 		rc = -ETIMEDOUT;
 		goto fail_cmd;
 	}
@@ -2233,9 +2221,7 @@ int q6asm_enc_cfg_blk_amrnb(struct audio_client *ac, uint32_t frames_per_buf,
 			(atomic_read(&ac->cmd_state) == 0), 5*HZ);
 	if (!rc) {
 		pr_err("timeout. waited for FORMAT_UPDATE\n");
-#ifdef HTC_AUD_DEBUG
-                
-#endif
+		HTC_Q6_BUG();
 		goto fail_cmd;
 	}
 	return 0;
@@ -2274,9 +2260,7 @@ int q6asm_enc_cfg_blk_amrwb(struct audio_client *ac, uint32_t frames_per_buf,
 			(atomic_read(&ac->cmd_state) == 0), 5*HZ);
 	if (!rc) {
 		pr_err("timeout. waited for FORMAT_UPDATE\n");
-#ifdef HTC_AUD_DEBUG
-                
-#endif
+		HTC_Q6_BUG();
 		goto fail_cmd;
 	}
 	return 0;
@@ -2314,9 +2298,7 @@ int q6asm_media_format_block_pcm(struct audio_client *ac,
 			(atomic_read(&ac->cmd_state) == 0), 5*HZ);
 	if (!rc) {
 		pr_err("%s:timeout. waited for FORMAT_UPDATE\n", __func__);
-#ifdef HTC_AUD_DEBUG
-                
-#endif
+		HTC_Q6_BUG();
 		goto fail_cmd;
 	}
 	return 0;
@@ -2523,9 +2505,7 @@ int q6asm_media_format_block_aac(struct audio_client *ac,
 			(atomic_read(&ac->cmd_state) == 0), 5*HZ);
 	if (!rc) {
 		pr_err("%s:timeout. waited for FORMAT_UPDATE\n", __func__);
-#ifdef HTC_AUD_DEBUG
-                
-#endif
+		HTC_Q6_BUG();
 		goto fail_cmd;
 	}
 	return 0;
@@ -2575,9 +2555,7 @@ int q6asm_media_format_block_multi_aac(struct audio_client *ac,
 			(atomic_read(&ac->cmd_state) == 0), 5*HZ);
 	if (!rc) {
 		pr_err("%s:timeout. waited for FORMAT_UPDATE\n", __func__);
-#ifdef HTC_AUD_DEBUG
-                
-#endif
+		HTC_Q6_BUG();
 		goto fail_cmd;
 	}
 	return 0;
@@ -2620,6 +2598,9 @@ int q6asm_media_format_block(struct audio_client *ac, uint32_t format)
 	case FORMAT_DTS_LBR:
 		fmt.format = DTS_LBR;
 		break;
+	case FORMAT_LINEAR_PCM:
+		fmt.format = LINEAR_PCM;
+		break;
 	default:
 		pr_err("Invalid format[%d]\n", format);
 		goto fail_cmd;
@@ -2635,9 +2616,7 @@ int q6asm_media_format_block(struct audio_client *ac, uint32_t format)
 		(atomic_read(&ac->cmd_state) == 0), 5*HZ);
 	if (!rc) {
 		pr_err("%s:timeout. waited for FORMAT_UPDATE\n", __func__);
-#ifdef HTC_AUD_DEBUG
-                
-#endif
+		HTC_Q6_BUG();
 		goto fail_cmd;
 	}
 	return 0;
@@ -2787,7 +2766,7 @@ int q6asm_memory_map(struct audio_client *ac, uint32_t buf_add, int dir,
 		(atomic_read(&this_mmap.cmd_state) == 0), 5 * HZ);
 	if (!rc) {
 		pr_err("timeout. waited for memory_map\n");
-                
+		HTC_Q6_BUG();
 		rc = -EINVAL;
 		goto fail_cmd;
 	}
@@ -2824,7 +2803,7 @@ int q6asm_memory_unmap(struct audio_client *ac, uint32_t buf_add, int dir)
 			(atomic_read(&this_mmap.cmd_state) == 0), 5 * HZ);
 	if (!rc) {
 		pr_err("timeout. waited for memory_map\n");
-                
+		HTC_Q6_BUG();
 		rc = -EINVAL;
 		goto fail_cmd;
 	}
@@ -2878,9 +2857,7 @@ int q6asm_set_lrgain(struct audio_client *ac, int left_gain, int right_gain)
 	if (!rc) {
 		pr_err("%s: timeout in sending volume command to apr\n",
 			__func__);
-#ifdef HTC_AUD_DEBUG
-                
-#endif
+		HTC_Q6_BUG();
 		rc = -EINVAL;
 		goto fail_cmd;
 	}
@@ -2949,7 +2926,7 @@ static int q6asm_memory_map_regions(struct audio_client *ac, int dir,
 			(atomic_read(&this_mmap.cmd_state) == 0), 5*HZ);
 	if (!rc) {
 		pr_err("timeout. waited for memory_map\n");
-                
+		HTC_Q6_BUG();
 		rc = -EINVAL;
 		goto fail_cmd;
 	}
@@ -3014,7 +2991,7 @@ static int q6asm_memory_unmap_regions(struct audio_client *ac, int dir,
 			(atomic_read(&this_mmap.cmd_state) == 0), 5*HZ);
 	if (!rc) {
 		pr_err("timeout. waited for memory_unmap\n");
-                
+		HTC_Q6_BUG();
 		goto fail_cmd;
 	}
 	rc = 0;
@@ -3068,9 +3045,7 @@ int q6asm_set_mute(struct audio_client *ac, int muteflag)
 	if (!rc) {
 		pr_err("%s: timeout in sending mute command to apr\n",
 			__func__);
-#ifdef HTC_AUD_DEBUG
-                
-#endif
+		HTC_Q6_BUG();
 		rc = -EINVAL;
 		goto fail_cmd;
 	}
@@ -3182,9 +3157,7 @@ int q6asm_set_volume(struct audio_client *ac, int volume)
 	if (!rc) {
 		pr_err("%s: timeout in sending volume command to apr\n",
 			__func__);
-#ifdef HTC_AUD_DEBUG
-                
-#endif
+		HTC_Q6_BUG();
 		rc = -EINVAL;
 		goto fail_cmd;
 	}
@@ -3309,9 +3282,7 @@ int q6asm_set_softvolume(struct audio_client *ac,
 	if (!rc) {
 		pr_err("%s: timeout in sending volume command(soft_volume) to apr\n",
 							 __func__);
-#ifdef HTC_AUD_DEBUG
-                
-#endif
+		HTC_Q6_BUG();
 		rc = -EINVAL;
 		goto fail_cmd;
 	}
@@ -3390,9 +3361,7 @@ int q6asm_equalizer(struct audio_client *ac, void *eq)
 	if (!rc) {
 		pr_err("%s: timeout in sending equalizer command to apr\n",
 			__func__);
-#ifdef HTC_AUD_DEBUG
-                
-#endif
+		HTC_Q6_BUG();
 		rc = -EINVAL;
 		goto fail_cmd;
 	}
@@ -3762,9 +3731,7 @@ uint64_t q6asm_get_session_time(struct audio_client *ac)
 	if (!rc) {
 		pr_err("%s: timeout in getting session time from DSP\n",
 			__func__);
-#ifdef HTC_AUD_DEBUG
-                
-#endif
+		HTC_Q6_BUG();
 		goto fail_cmd;
 	}
 	return ac->time_stamp;
@@ -3828,9 +3795,7 @@ int q6asm_cmd(struct audio_client *ac, int cmd)
 	if (!rc) {
 		pr_err("timeout. waited for response opcode[0x%x]\n",
 							hdr.opcode);
-#ifdef HTC_AUD_DEBUG
-                
-#endif
+		HTC_Q6_BUG();
 		goto fail_cmd;
 	}
 	if (cmd == CMD_FLUSH)
@@ -3952,9 +3917,7 @@ int q6asm_reg_tx_overflow(struct audio_client *ac, uint16_t enable)
 				(atomic_read(&ac->cmd_state) == 0), 5*HZ);
 	if (!rc) {
 		pr_err("timeout. waited for tx overflow\n");
-#ifdef HTC_AUD_DEBUG
-                
-#endif
+		HTC_Q6_BUG();
 		goto fail_cmd;
 	}
 	return 0;
